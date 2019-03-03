@@ -7,6 +7,7 @@ Algorithms for Bionformatics - Exercises and python module
 * Generate (HTML) report: `coverage report` | `coverage html`
 
 ## Docs
+Examples for [comments to use](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html#example-numpy)
 `cd bioseq/docs`
  * Windows: `make.bat html`
  * Linux: `make html`
