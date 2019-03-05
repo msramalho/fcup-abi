@@ -3,8 +3,9 @@ from collections import Counter
 
 class BioSeq(object):
     """The summary line for a class docstring should fit on one line."""
-    valid_types = {"DNA", "RNA", "PROTEIN"}
-    valid_tokens = {}
+    valid_types = {"DNA", "RNA", "PROTEIN"} #: What are the valid values for seq_type
+    valid_tokens = {} #: Which tokens a given biological sequence can have
+    # reverse_complement
 
     def __init__(self, sequence, seq_type):
         """Constructor for the Bio Sequence class"""
