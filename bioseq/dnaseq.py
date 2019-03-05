@@ -2,7 +2,7 @@ from bioseq import BioSeq
 
 
 class DNASeq(BioSeq):
-    """"Biological Sequence specific for DNA"""
+    """Biological Sequence specific for DNA"""
     valid_tokens = {"A", "T", "C", "G"}
     reverse = {"A": "T", "T": "A", "C": "G", "G": "C"}
 

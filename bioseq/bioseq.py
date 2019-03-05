@@ -2,7 +2,7 @@ from collections import Counter
 
 
 class BioSeq(object):
-    """The summary line for a class docstring should fit on one line."""
+    """General purpose class for handling and manipulating biological sequences and perform operations on them."""
     valid_types = {"DNA", "RNA", "PROTEIN"}  #: What are the valid values for seq_type
     valid_tokens = {}  #: Which tokens a given biological sequence can have
     reverse = {}  #: rules for reverse_complement
@@ -22,6 +22,7 @@ class BioSeq(object):
         return (self.sequence.count("G") + self.sequence.count("C")) / len(self)
 
     def reverse_complement(self):
+        """Given a Biological sequence, generate the reverse complement sequence for the specific type. Uses the static variable reverse"""
         return "".join(type(self).reverse[x] for x in self.sequence)[::-1]
 
     def _assert_valid_sequence(self):
