@@ -13,6 +13,14 @@ class TestBioSeqMethods(unittest.TestCase):
         s = BioSeq("AACCCCCTGG", "DNA")
         self.assertDictEqual({"A": 20.0, "C": 50.0, "T": 10.0, "G": 20.0}, s.frequency())
 
+    def test_gc_content(self):
+        s = BioSeq("AACCCCCTGG", "DNA")
+        self.assertEqual(0.70, s.gc_content())
+        s.sequence = "AA"
+        self.assertEqual(0.0, s.gc_content())
+        s.sequence = "GC"
+        self.assertEqual(1.0, s.gc_content())
+
     def test_assert_seq_type(self):
         s = BioSeq("ATATAT", "DNA")
         self.assertTrue(s._assert_seq_type())

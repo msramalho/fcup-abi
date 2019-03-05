@@ -5,8 +5,6 @@ class BioSeq(object):
     """The summary line for a class docstring should fit on one line."""
     valid_types = {"DNA", "RNA", "PROTEIN"}
     valid_tokens = {}
-    # valid_ami = {'P', 'F', '_', 'M', 'I', 'R', 'K', 'A', 'L', 'V', 'Q', 'E', 'C', 'N', 'W', 'H', 'S', 'T', 'D', 'G', 'Y'}
-    # valid_rna = {"A", "U", "C", "G"}
 
     def __init__(self, sequence, seq_type):
         """Constructor for the Bio Sequence class"""
@@ -17,6 +15,10 @@ class BioSeq(object):
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""
         return {k: 100 * v / len(self) for k, v in Counter(self.sequence).items()}
+
+    def gc_content(self):
+        """Calculate the gc_content of the sequence"""
+        return (self.sequence.count("G") + self.sequence.count("C")) / len(self)
 
     def _assert_valid_sequence(self):
         """assert that all the tokens in the sequence are valid for that sequence type"""
