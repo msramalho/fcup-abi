@@ -10,7 +10,7 @@ class BioSeq(object):
 
     def __init__(self, sequence, seq_type):
         """Constructor for the Bio Sequence class"""
-        self.sequence = sequence  #: The current sequence
+        self.sequence = sequence.upper()  #: The current sequence
         self.seq_type = seq_type.upper()  #: DNA, RNA, PROTEIN
         assert self._assert_seq_type(), "%s is not a valid sequence type(%s)" % (self.seq_type, BioSeq.valid_types)
 

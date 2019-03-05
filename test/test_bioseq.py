@@ -4,7 +4,9 @@ from bioseq import BioSeq
 
 class TestBioSeqMethods(unittest.TestCase):
     def test_constructor(self):
-        s = BioSeq("ATATAT", "DNA")
+        s = BioSeq("ATATat", "DNa")
+        self.assertEqual("ATATAT", s.sequence)
+        self.assertEqual("DNA", s.seq_type)
         self.assertRaises(Exception, BioSeq, "ATAT", "smth")
 
     def test_frequency(self):
