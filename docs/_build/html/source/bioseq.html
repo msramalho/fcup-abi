@@ -84,6 +84,8 @@
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-bioseq.bioseq">bioseq module</a></li>
 <li><a class="reference internal" href="#module-bioseq.dnaseq">dnaseq module</a></li>
+<li><a class="reference internal" href="#module-bioseq.rnaseq">rnaseq module</a></li>
+<li><a class="reference internal" href="#module-bioseq.proteinseq">proteinseq module</a></li>
 <li><a class="reference internal" href="#module-bioseq">Module contents</a></li>
 </ul>
 </li>
@@ -162,7 +164,7 @@
 <dt id="bioseq.bioseq.BioSeq">
 <em class="property">class </em><code class="descclassname">bioseq.bioseq.</code><code class="descname">BioSeq</code><span class="sig-paren">(</span><em>sequence</em>, <em>seq_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The summary line for a class docstring should fit on one line.</p>
+<p>General purpose class for handling and manipulating biological sequences and perform operations on them.</p>
 <dl class="method">
 <dt id="bioseq.bioseq.BioSeq._assert_seq_type">
 <code class="descname">_assert_seq_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq._assert_seq_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq._assert_seq_type" title="Permalink to this definition">¶</a></dt>
@@ -173,6 +175,30 @@
 <dt id="bioseq.bioseq.BioSeq._assert_valid_sequence">
 <code class="descname">_assert_valid_sequence</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq._assert_valid_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq._assert_valid_sequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>assert that all the tokens in the sequence are valid for that sequence type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.frequency">
+<code class="descname">frequency</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.frequency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the relative frequency of each token in the sequence</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.gc_content">
+<code class="descname">gc_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.gc_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the gc_content of the sequence</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bioseq.bioseq.BioSeq.reverse">
+<code class="descname">reverse</code><em class="property"> = {}</em><a class="headerlink" href="#bioseq.bioseq.BioSeq.reverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>rules for reverse_complement</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.reverse_complement">
+<code class="descname">reverse_complement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.reverse_complement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.reverse_complement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a Biological sequence, generate the reverse complement sequence for the specific type. Uses the static variable reverse</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -190,12 +216,14 @@
 <dl class="attribute">
 <dt id="bioseq.bioseq.BioSeq.valid_tokens">
 <code class="descname">valid_tokens</code><em class="property"> = {}</em><a class="headerlink" href="#bioseq.bioseq.BioSeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Which tokens a given biological sequence can have</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="bioseq.bioseq.BioSeq.valid_types">
 <code class="descname">valid_types</code><em class="property"> = {'DNA', 'PROTEIN', 'RNA'}</em><a class="headerlink" href="#bioseq.bioseq.BioSeq.valid_types" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>What are the valid values for seq_type</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -206,10 +234,62 @@
 <dt id="bioseq.dnaseq.DNASeq">
 <em class="property">class </em><code class="descclassname">bioseq.dnaseq.</code><code class="descname">DNASeq</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/dnaseq.html#DNASeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.dnaseq.DNASeq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bioseq.bioseq.BioSeq" title="bioseq.bioseq.BioSeq"><code class="xref py py-class docutils literal notranslate"><span class="pre">bioseq.bioseq.BioSeq</span></code></a></p>
-<p>“Biological Sequence specific for DNA</p>
+<p>Biological Sequence specific for DNA</p>
+<dl class="attribute">
+<dt id="bioseq.dnaseq.DNASeq.reverse">
+<code class="descname">reverse</code><em class="property"> = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}</em><a class="headerlink" href="#bioseq.dnaseq.DNASeq.reverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="bioseq.dnaseq.DNASeq.valid_tokens">
 <code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'G', 'T'}</em><a class="headerlink" href="#bioseq.dnaseq.DNASeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioseq.rnaseq">
+<span id="rnaseq-module"></span><h2>rnaseq module<a class="headerlink" href="#module-bioseq.rnaseq" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.rnaseq.RNASeq">
+<em class="property">class </em><code class="descclassname">bioseq.rnaseq.</code><code class="descname">RNASeq</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/rnaseq.html#RNASeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.rnaseq.RNASeq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bioseq.bioseq.BioSeq" title="bioseq.bioseq.BioSeq"><code class="xref py py-class docutils literal notranslate"><span class="pre">bioseq.bioseq.BioSeq</span></code></a></p>
+<p>Biological Sequence specific for RNA</p>
+<dl class="attribute">
+<dt id="bioseq.rnaseq.RNASeq.reverse">
+<code class="descname">reverse</code><em class="property"> = {'A': 'U', 'C': 'G', 'G': 'C', 'U': 'A'}</em><a class="headerlink" href="#bioseq.rnaseq.RNASeq.reverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bioseq.rnaseq.RNASeq.valid_tokens">
+<code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'G', 'U'}</em><a class="headerlink" href="#bioseq.rnaseq.RNASeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioseq.proteinseq">
+<span id="proteinseq-module"></span><h2>proteinseq module<a class="headerlink" href="#module-bioseq.proteinseq" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.proteinseq.ProteinSeq">
+<em class="property">class </em><code class="descclassname">bioseq.proteinseq.</code><code class="descname">ProteinSeq</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/proteinseq.html#ProteinSeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.proteinseq.ProteinSeq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bioseq.bioseq.BioSeq" title="bioseq.bioseq.BioSeq"><code class="xref py py-class docutils literal notranslate"><span class="pre">bioseq.bioseq.BioSeq</span></code></a></p>
+<p>Biological Sequence specific for PROTEINS</p>
+<dl class="method">
+<dt id="bioseq.proteinseq.ProteinSeq.gc_content">
+<code class="descname">gc_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/proteinseq.html#ProteinSeq.gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.proteinseq.ProteinSeq.gc_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the gc_content of the sequence</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.proteinseq.ProteinSeq.reverse_complement">
+<code class="descname">reverse_complement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/proteinseq.html#ProteinSeq.reverse_complement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.proteinseq.ProteinSeq.reverse_complement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a Biological sequence, generate the reverse complement sequence for the specific type. Uses the static variable reverse</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bioseq.proteinseq.ProteinSeq.valid_tokens">
+<code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y', '_'}</em><a class="headerlink" href="#bioseq.proteinseq.ProteinSeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

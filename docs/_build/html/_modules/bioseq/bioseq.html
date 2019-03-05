@@ -141,19 +141,32 @@
            <div itemprop="articleBody">
             
   <h1>Source code for bioseq.bioseq</h1><div class="highlight"><pre>
-<span></span>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+
+
 <div class="viewcode-block" id="BioSeq"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq">[docs]</a><span class="k">class</span> <span class="nc">BioSeq</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The summary line for a class docstring should fit on one line.&quot;&quot;&quot;</span>
-    <span class="n">valid_types</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;DNA&quot;</span><span class="p">,</span> <span class="s2">&quot;RNA&quot;</span><span class="p">,</span> <span class="s2">&quot;PROTEIN&quot;</span><span class="p">}</span>
-    <span class="n">valid_tokens</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="c1"># valid_ami = {&#39;P&#39;, &#39;F&#39;, &#39;_&#39;, &#39;M&#39;, &#39;I&#39;, &#39;R&#39;, &#39;K&#39;, &#39;A&#39;, &#39;L&#39;, &#39;V&#39;, &#39;Q&#39;, &#39;E&#39;, &#39;C&#39;, &#39;N&#39;, &#39;W&#39;, &#39;H&#39;, &#39;S&#39;, &#39;T&#39;, &#39;D&#39;, &#39;G&#39;, &#39;Y&#39;}</span>
-    <span class="c1"># valid_rna = {&quot;A&quot;, &quot;U&quot;, &quot;C&quot;, &quot;G&quot;}</span>
+    <span class="sd">&quot;&quot;&quot;General purpose class for handling and manipulating biological sequences and perform operations on them.&quot;&quot;&quot;</span>
+    <span class="n">valid_types</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;DNA&quot;</span><span class="p">,</span> <span class="s2">&quot;RNA&quot;</span><span class="p">,</span> <span class="s2">&quot;PROTEIN&quot;</span><span class="p">}</span>  <span class="c1">#: What are the valid values for seq_type</span>
+    <span class="n">valid_tokens</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">#: Which tokens a given biological sequence can have</span>
+    <span class="n">reverse</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">#: rules for reverse_complement</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">seq_type</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor for the Bio Sequence class&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span>  <span class="c1">#: The current sequence</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1">#: The current sequence</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seq_type</span> <span class="o">=</span> <span class="n">seq_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1">#: DNA, RNA, PROTEIN</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assert_seq_type</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a valid sequence type(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seq_type</span><span class="p">,</span> <span class="n">BioSeq</span><span class="o">.</span><span class="n">valid_types</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BioSeq.frequency"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.frequency">[docs]</a>    <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the relative frequency of each token in the sequence&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">v</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
+
+<div class="viewcode-block" id="BioSeq.gc_content"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the gc_content of the sequence&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSeq.reverse_complement"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.reverse_complement">[docs]</a>    <span class="k">def</span> <span class="nf">reverse_complement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a Biological sequence, generate the reverse complement sequence for the specific type. Uses the static variable reverse&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">reverse</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="BioSeq._assert_valid_sequence"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq._assert_valid_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">_assert_valid_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;assert that all the tokens in the sequence are valid for that sequence type&quot;&quot;&quot;</span>
@@ -162,6 +175,10 @@
 <div class="viewcode-block" id="BioSeq._assert_seq_type"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq._assert_seq_type">[docs]</a>    <span class="k">def</span> <span class="nf">_assert_seq_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Assert a proper valid has been chosen for seq_type&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq_type</span> <span class="ow">in</span> <span class="n">BioSeq</span><span class="o">.</span><span class="n">valid_types</span></div>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the length of the sequence - number of tokens&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Class information visualization&quot;&quot;&quot;</span>

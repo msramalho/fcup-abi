@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bioseq.dnaseq &mdash; bioseq 0.1 documentation</title>
+  <title>bioseq.rnaseq &mdash; bioseq 0.1 documentation</title>
   
 
   
@@ -125,7 +125,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>bioseq.dnaseq</li>
+      <li>bioseq.rnaseq</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -140,17 +140,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for bioseq.dnaseq</h1><div class="highlight"><pre>
+  <h1>Source code for bioseq.rnaseq</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">bioseq</span> <span class="k">import</span> <span class="n">BioSeq</span>
 
 
-<div class="viewcode-block" id="DNASeq"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.dnaseq.DNASeq">[docs]</a><span class="k">class</span> <span class="nc">DNASeq</span><span class="p">(</span><span class="n">BioSeq</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Biological Sequence specific for DNA&quot;&quot;&quot;</span>
-    <span class="n">valid_tokens</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">}</span>
-    <span class="n">reverse</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">}</span>
+<div class="viewcode-block" id="RNASeq"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.rnaseq.RNASeq">[docs]</a><span class="k">class</span> <span class="nc">RNASeq</span><span class="p">(</span><span class="n">BioSeq</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Biological Sequence specific for RNA&quot;&quot;&quot;</span>
+    <span class="n">valid_tokens</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">}</span>
+    <span class="n">reverse</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="s2">&quot;DNA&quot;</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="s2">&quot;RNA&quot;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
