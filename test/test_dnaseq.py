@@ -7,6 +7,7 @@ example_dna = "ATGAAATTATGAATGAGCCTCAGCTGAAGCATCGCGCATCAGACTACGCTCAGACTCAGACTCAG
 
 class TestDNASeq(unittest.TestCase):
     def test_constructor(self):
+        self.maxDiff = None
         s = DNASeq("ATATATCGCG")
         self.assertIsInstance(s, DNASeq)
         self.assertEqual("ATATATCGCG", s.sequence)

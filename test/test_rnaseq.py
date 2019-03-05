@@ -6,6 +6,7 @@ example_rna = "ATGAAATTATGAATGAGCCTCAGCTGAAGCATCGCGCATCAGACTACGCTCAGACTCAGACTCAG
 
 class TestRNASeq(unittest.TestCase):
     def test_constructor(self):
+        self.maxDiff = None
         s = RNASeq("AUGCGAU")
         self.assertIsInstance(s, RNASeq)
         self.assertEqual("AUGCGAU", s.sequence)

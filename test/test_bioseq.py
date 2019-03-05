@@ -6,6 +6,7 @@ from bioseq import BioSeq
 
 class TestBioSeq(unittest.TestCase):
     def test_constructor(self):
+        self.maxDiff = None
         s = BioSeq("ATATat", "DNa")
         self.assertIsInstance(s, BioSeq)
         self.assertEqual("ATATAT", s.sequence)
@@ -36,11 +37,11 @@ class TestBioSeq(unittest.TestCase):
 
     def test_str(self):
         s = BioSeq("ATATAT", "DNA")
-        self.assertEqual("DNA: 'ATATAT'", str(s))
+        self.assertEqual("ATATAT", str(s))
 
     def test_repr(self):
         s = [BioSeq("ATATAT", "DNA")]
-        self.assertEqual("[DNA: 'ATATAT']", str(s))
+        self.assertEqual("[ATATAT]", str(s))
 
     def test_getitem(self):
         s = BioSeq("ATATAT", "DNA")
