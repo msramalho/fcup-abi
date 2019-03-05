@@ -1,15 +1,15 @@
 import unittest
-from bioseq import BioSeq, DNASeq
+from bioseq import DNASeq
 
 
-class TestBioSeqMethods(unittest.TestCase):
+class TestDNASeqMethods(unittest.TestCase):
     def test_constructor(self):
-        s = DNASeq("ATATAT")
-        self.assertEqual("ATATAT", s.sequence)
+        s = DNASeq("ATATATCGCG")
+        self.assertEqual("ATATATCGCG", s.sequence)
         self.assertEqual("DNA", s.seq_type)
     
     def test_custom_assert_valid(self):
-        s = DNASeq("ATATAT")
+        s = DNASeq("ATATATCGCG")
         self.assertTrue(s._assert_valid_sequence())
         s.sequence+="X"
         self.assertFalse(s._assert_valid_sequence())
