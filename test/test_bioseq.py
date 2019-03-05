@@ -2,16 +2,17 @@ import unittest
 from bioseq import BioSeq
 
 
-class TestBioSeqMethods(unittest.TestCase):
+class TestBioSeq(unittest.TestCase):
     def test_constructor(self):
         s = BioSeq("ATATat", "DNa")
+        self.assertIsInstance(s, BioSeq)
         self.assertEqual("ATATAT", s.sequence)
         self.assertEqual("DNA", s.seq_type)
         self.assertRaises(Exception, BioSeq, "ATAT", "smth")
 
     def test_frequency(self):
         s = BioSeq("AACCCCCTGG", "DNA")
-        self.assertDictEqual({"A": 20.0, "C": 50.0, "T": 10.0, "G": 20.0}, s.frequency())
+        self.assertDictEqual({"A": 0.2, "C": 0.5, "T": 0.1, "G": 0.2}, s.frequency())
 
     def test_gc_content(self):
         s = BioSeq("AACCCCCTGG", "DNA")

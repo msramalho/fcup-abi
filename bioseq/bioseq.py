@@ -15,7 +15,7 @@ class BioSeq(object):
 
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""
-        return {k: 100 * v / len(self) for k, v in Counter(self.sequence).items()}
+        return {k: v / len(self) for k, v in Counter(self.sequence).items()}
 
     def gc_content(self):
         """Calculate the gc_content of the sequence"""
