@@ -4,7 +4,6 @@ from bioseq import ProteinSeq
 
 class TestProteinSeq(unittest.TestCase):
     def test_constructor(self):
-        self.maxDiff = None
         s = ProteinSeq("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N")
         self.assertEqual("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N", s.sequence)
         self.assertEqual("PROTEIN", s.seq_type)

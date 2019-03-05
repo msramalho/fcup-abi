@@ -6,7 +6,6 @@ example_rna = "ATGAAATTATGAATGAGCCTCAGCTGAAGCATCGCGCATCAGACTACGCTCAGACTCAGACTCAG
 
 class TestRNASeq(unittest.TestCase):
     def test_constructor(self):
-        self.maxDiff = None
         s = RNASeq("AUGCGAU")
         self.assertIsInstance(s, RNASeq)
         self.assertEqual("AUGCGAU", s.sequence)
@@ -43,7 +42,7 @@ class TestRNASeq(unittest.TestCase):
         rna = RNASeq(example_rna)
         rf = list(rna._reading_frames())
         self.assertEqual(6, len(rf))
-        self.assertEqual("[PROTEIN: 'MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N', PROTEIN: '_NYE_ASAEASRIRLRSDSDSAL__MLINKI', PROTEIN: 'EIMNEPQLKHRASDYAQTQTQHYSEC__IK_', PROTEIN: 'NKINNCK_YYDSDSDSHQTTRYEVDSE_VLK', PROTEIN: 'IK_IIVSDITTQTQTRIRLRATKSTPSKY_S', PROTEIN: '_NK_L_VILRLRLRLASDYALRSRLRVSIKV']", str(rf))
+        self.assertEqual("[MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N, _NYE_ASAEASRIRLRSDSDSAL__MLINKI, EIMNEPQLKHRASDYAQTQTQHYSEC__IK_, NKINNCK_YYDSDSDSHQTTRYEVDSE_VLK, IK_IIVSDITTQTQTRIRLRATKSTPSKY_S, _NK_L_VILRLRLRLASDYALRSRLRVSIKV]", str(rf))
 
     def test_open_reading_frames(self):
         rna = RNASeq(example_rna)

@@ -44,7 +44,7 @@ class BioSeq(object):
 
     def __str__(self):
         """Class information visualization"""
-        return "%s: '%s'" % (self.seq_type, self.sequence)
+        return self.sequence
 
     def __repr__(self):
         """Class information visualization"""
