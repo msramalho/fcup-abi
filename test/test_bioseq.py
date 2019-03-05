@@ -36,6 +36,31 @@ class TestBioSeq(unittest.TestCase):
         s = BioSeq("ATATAT", "DNA")
         self.assertEqual("DNA: 'ATATAT'", str(s))
 
+    def test_repr(self):
+        s = [BioSeq("ATATAT", "DNA")]
+        self.assertEqual("[DNA: 'ATATAT']", str(s))
+
+    def test_getitem(self):
+        s = BioSeq("ATATAT", "DNA")
+        self.assertEqual("A", s[0])
+        self.assertEqual("T", s[-1])
+
+    def test_getslice(self):
+        s = BioSeq("ATATAT", "DNA")
+        self.assertEqual("A", s[0:1])
+        self.assertEqual("T", s[-1:])
+        self.assertEqual("AT", s[0:2])
+        self.assertEqual("A", s[0:1:1])
+        self.assertEqual("T", s[-1::1])
+        self.assertEqual("AAA", s[0::2])
+        # explicit invocation of function
+        self.assertEqual("A", s.__getslice__(0,1))
+        self.assertEqual("T", s.__getslice__(-1,len(s)))
+        self.assertEqual("AT", s.__getslice__(0,2))
+        self.assertEqual("A", s.__getslice__(0,1,1))
+        self.assertEqual("T", s.__getslice__(-1,len(s),1))
+        self.assertEqual("AAA", s.__getslice__(0,len(s),2))
+
     def test_len(self):
         s = BioSeq("ATATAT", "DNA")
         self.assertEqual(6, len(s))

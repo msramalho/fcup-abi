@@ -40,3 +40,15 @@ class BioSeq(object):
     def __str__(self):
         """Class information visualization"""
         return "%s: '%s'" % (self.seq_type, self.sequence)
+
+    def __repr__(self):
+        """Class information visualization"""
+        return self.__str__()
+
+    def __getitem__(self, index):
+        """get specific element of sequence"""
+        return self.sequence[index]
+
+    def __getslice__(self, start, stop, step=1):
+        """get elements from [start to stop[ of sequence with a custom step"""
+        return self.sequence[start:stop:step]
