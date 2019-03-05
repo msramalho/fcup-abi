@@ -14,6 +14,9 @@ class TestRNASeqMethods(unittest.TestCase):
         s.sequence+="T"
         self.assertFalse(s._assert_valid_sequence())
 
+    def test_reverse_complement(self):
+        s = RNASeq("AUCG")
+        self.assertEqual("CGAU", s.reverse_complement())
 
 if __name__ == '__main__':
     unittest.main()

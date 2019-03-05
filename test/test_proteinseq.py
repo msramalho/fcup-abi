@@ -14,6 +14,15 @@ class TestRNASeqMethods(unittest.TestCase):
         s.sequence+="2"
         self.assertFalse(s._assert_valid_sequence())
 
+    def test_gc_content(self):
+        s = ProteinSeq("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N")
+        self.assertRaises(NotImplementedError, s.gc_content)
+        
+    def test_reverse_complement(self):
+        s = ProteinSeq("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N")
+        self.assertRaises(NotImplementedError, s.reverse_complement)
+
+
 
 if __name__ == '__main__':
     unittest.main()

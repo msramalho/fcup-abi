@@ -7,3 +7,9 @@ class ProteinSeq(BioSeq):
 
     def __init__(self, sequence):
         super().__init__(sequence, "PROTEIN")
+
+    def gc_content(self):
+        raise NotImplementedError("The class ProteinSeq does not have a meaningful implementation for gc_content")
+
+    def reverse_complement(self):
+        raise NotImplementedError("The class ProteinSeq does not have a meaningful implementation for reverse_complement")

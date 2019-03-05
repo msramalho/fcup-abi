@@ -14,6 +14,9 @@ class TestDNASeqMethods(unittest.TestCase):
         s.sequence+="X"
         self.assertFalse(s._assert_valid_sequence())
 
+    def test_reverse_complement(self):
+        s = DNASeq("ATCG")
+        self.assertEqual("CGAT", s.reverse_complement())
 
 if __name__ == '__main__':
     unittest.main()
