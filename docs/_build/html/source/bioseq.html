@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="python" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="python" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -82,7 +82,8 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">bioseq package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-bioseq.bioseq">bioseq.bioseq module</a></li>
+<li><a class="reference internal" href="#module-bioseq.bioseq">bioseq module</a></li>
+<li><a class="reference internal" href="#module-bioseq.dnaseq">dnaseq module</a></li>
 <li><a class="reference internal" href="#module-bioseq">Module contents</a></li>
 </ul>
 </li>
@@ -156,61 +157,61 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-bioseq.bioseq">
-<span id="bioseq-bioseq-module"></span><h2>bioseq.bioseq module<a class="headerlink" href="#module-bioseq.bioseq" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="bioseq.bioseq.sum">
-<code class="descclassname">bioseq.bioseq.</code><code class="descname">sum</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.sum" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is an example of a module level function.</p>
-<p>Function parameters should be documented in the <code class="docutils literal notranslate"><span class="pre">Parameters</span></code> section.
-The name of each parameter is required. The type and description of each
-parameter is optional, but should be included if not obvious.</p>
-<p>If *args or **kwargs are accepted,
-they should be listed as <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>.</p>
-<p>The format for a parameter is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="p">:</span> <span class="nb">type</span>
-    <span class="n">description</span>
+<span id="bioseq-module"></span><h2>bioseq module<a class="headerlink" href="#module-bioseq.bioseq" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.bioseq.BioSeq">
+<em class="property">class </em><code class="descclassname">bioseq.bioseq.</code><code class="descname">BioSeq</code><span class="sig-paren">(</span><em>sequence</em>, <em>seq_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The summary line for a class docstring should fit on one line.</p>
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq._assert_seq_type">
+<code class="descname">_assert_seq_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq._assert_seq_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq._assert_seq_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert a proper valid has been chosen for seq_type</p>
+</dd></dl>
 
-    <span class="n">The</span> <span class="n">description</span> <span class="n">may</span> <span class="n">span</span> <span class="n">multiple</span> <span class="n">lines</span><span class="o">.</span> <span class="n">Following</span> <span class="n">lines</span>
-    <span class="n">should</span> <span class="n">be</span> <span class="n">indented</span> <span class="n">to</span> <span class="n">match</span> <span class="n">the</span> <span class="n">first</span> <span class="n">line</span> <span class="n">of</span> <span class="n">the</span> <span class="n">description</span><span class="o">.</span>
-    <span class="n">The</span> <span class="s2">&quot;: type&quot;</span> <span class="ow">is</span> <span class="n">optional</span><span class="o">.</span>
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq._assert_valid_sequence">
+<code class="descname">_assert_valid_sequence</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq._assert_valid_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq._assert_valid_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>assert that all the tokens in the sequence are valid for that sequence type</p>
+</dd></dl>
 
-    <span class="n">Multiple</span> <span class="n">paragraphs</span> <span class="n">are</span> <span class="n">supported</span> <span class="ow">in</span> <span class="n">parameter</span>
-    <span class="n">descriptions</span><span class="o">.</span>
-</pre></div>
+<dl class="attribute">
+<dt id="bioseq.bioseq.BioSeq.seq_type">
+<code class="descname">seq_type</code><em class="property"> = None</em><a class="headerlink" href="#bioseq.bioseq.BioSeq.seq_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>DNA, RNA, PROTEIN</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bioseq.bioseq.BioSeq.sequence">
+<code class="descname">sequence</code><em class="property"> = None</em><a class="headerlink" href="#bioseq.bioseq.BioSeq.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current sequence</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bioseq.bioseq.BioSeq.valid_tokens">
+<code class="descname">valid_tokens</code><em class="property"> = {}</em><a class="headerlink" href="#bioseq.bioseq.BioSeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bioseq.bioseq.BioSeq.valid_types">
+<code class="descname">valid_types</code><em class="property"> = {'DNA', 'PROTEIN', 'RNA'}</em><a class="headerlink" href="#bioseq.bioseq.BioSeq.valid_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<dl class="docutils">
-<dt>param1 <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>The first parameter.</dd>
-<dt>param2 <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional</span></dt>
-<dd>The second parameter.</dd>
-<dt><a href="#id1"><span class="problematic" id="id2">*</span></a>args</dt>
-<dd>Variable length argument list.</dd>
-<dt><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs</dt>
-<dd>Arbitrary keyword arguments.</dd>
-</dl>
-<dl class="docutils">
-<dt>bool</dt>
-<dd><p class="first">True if successful, False otherwise.</p>
-<p>The return type is not optional. The <code class="docutils literal notranslate"><span class="pre">Returns</span></code> section may span
-multiple lines and paragraphs. Following lines should be indented to
-match the first line of the description.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Returns</span></code> section supports any reStructuredText formatting,
-including literal blocks:</p>
-<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;param1&#39;</span><span class="p">:</span> <span class="n">param1</span><span class="p">,</span>
-    <span class="s1">&#39;param2&#39;</span><span class="p">:</span> <span class="n">param2</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-<dl class="docutils">
-<dt>AttributeError</dt>
-<dd>The <code class="docutils literal notranslate"><span class="pre">Raises</span></code> section is a list of all exceptions
-that are relevant to the interface.</dd>
-<dt>ValueError</dt>
-<dd>If <cite>param2</cite> is equal to <cite>param1</cite>.</dd>
-</dl>
+<div class="section" id="module-bioseq.dnaseq">
+<span id="dnaseq-module"></span><h2>dnaseq module<a class="headerlink" href="#module-bioseq.dnaseq" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.dnaseq.DNASeq">
+<em class="property">class </em><code class="descclassname">bioseq.dnaseq.</code><code class="descname">DNASeq</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/dnaseq.html#DNASeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.dnaseq.DNASeq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bioseq.bioseq.BioSeq" title="bioseq.bioseq.BioSeq"><code class="xref py py-class docutils literal notranslate"><span class="pre">bioseq.bioseq.BioSeq</span></code></a></p>
+<p>“Biological Sequence specific for DNA</p>
+<dl class="attribute">
+<dt id="bioseq.dnaseq.DNASeq.valid_tokens">
+<code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'G', 'T'}</em><a class="headerlink" href="#bioseq.dnaseq.DNASeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>

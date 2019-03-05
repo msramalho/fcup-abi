@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="python" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="python" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -142,67 +142,30 @@
             
   <h1>Source code for bioseq.bioseq</h1><div class="highlight"><pre>
 <span></span>
+<div class="viewcode-block" id="BioSeq"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq">[docs]</a><span class="k">class</span> <span class="nc">BioSeq</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The summary line for a class docstring should fit on one line.&quot;&quot;&quot;</span>
+    <span class="n">valid_types</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;DNA&quot;</span><span class="p">,</span> <span class="s2">&quot;RNA&quot;</span><span class="p">,</span> <span class="s2">&quot;PROTEIN&quot;</span><span class="p">}</span>
+    <span class="n">valid_tokens</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># valid_ami = {&#39;P&#39;, &#39;F&#39;, &#39;_&#39;, &#39;M&#39;, &#39;I&#39;, &#39;R&#39;, &#39;K&#39;, &#39;A&#39;, &#39;L&#39;, &#39;V&#39;, &#39;Q&#39;, &#39;E&#39;, &#39;C&#39;, &#39;N&#39;, &#39;W&#39;, &#39;H&#39;, &#39;S&#39;, &#39;T&#39;, &#39;D&#39;, &#39;G&#39;, &#39;Y&#39;}</span>
+    <span class="c1"># valid_rna = {&quot;A&quot;, &quot;U&quot;, &quot;C&quot;, &quot;G&quot;}</span>
 
-<div class="viewcode-block" id="sum"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.sum">[docs]</a><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> 
-    <span class="sd">&quot;&quot;&quot;This is an example of a module level function.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">seq_type</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor for the Bio Sequence class&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span>  <span class="c1">#: The current sequence</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq_type</span> <span class="o">=</span> <span class="n">seq_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1">#: DNA, RNA, PROTEIN</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assert_seq_type</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a valid sequence type(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seq_type</span><span class="p">,</span> <span class="n">BioSeq</span><span class="o">.</span><span class="n">valid_types</span><span class="p">)</span>
 
-<span class="sd">    Function parameters should be documented in the ``Parameters`` section.</span>
-<span class="sd">    The name of each parameter is required. The type and description of each</span>
-<span class="sd">    parameter is optional, but should be included if not obvious.</span>
+<div class="viewcode-block" id="BioSeq._assert_valid_sequence"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq._assert_valid_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">_assert_valid_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;assert that all the tokens in the sequence are valid for that sequence type&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">valid_tokens</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span></div>
 
-<span class="sd">    If \*args or \*\*kwargs are accepted,</span>
-<span class="sd">    they should be listed as ``*args`` and ``**kwargs``.</span>
+<div class="viewcode-block" id="BioSeq._assert_seq_type"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq._assert_seq_type">[docs]</a>    <span class="k">def</span> <span class="nf">_assert_seq_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Assert a proper valid has been chosen for seq_type&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq_type</span> <span class="ow">in</span> <span class="n">BioSeq</span><span class="o">.</span><span class="n">valid_types</span></div>
 
-<span class="sd">    The format for a parameter is::</span>
-
-<span class="sd">        name : type</span>
-<span class="sd">            description</span>
-
-<span class="sd">            The description may span multiple lines. Following lines</span>
-<span class="sd">            should be indented to match the first line of the description.</span>
-<span class="sd">            The &quot;: type&quot; is optional.</span>
-
-<span class="sd">            Multiple paragraphs are supported in parameter</span>
-<span class="sd">            descriptions.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    param1 : int</span>
-<span class="sd">        The first parameter.</span>
-<span class="sd">    param2 : :obj:`str`, optional</span>
-<span class="sd">        The second parameter.</span>
-<span class="sd">    *args</span>
-<span class="sd">        Variable length argument list.</span>
-<span class="sd">    **kwargs</span>
-<span class="sd">        Arbitrary keyword arguments.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    bool</span>
-<span class="sd">        True if successful, False otherwise.</span>
-
-<span class="sd">        The return type is not optional. The ``Returns`` section may span</span>
-<span class="sd">        multiple lines and paragraphs. Following lines should be indented to</span>
-<span class="sd">        match the first line of the description.</span>
-
-<span class="sd">        The ``Returns`` section supports any reStructuredText formatting,</span>
-<span class="sd">        including literal blocks::</span>
-
-<span class="sd">            {</span>
-<span class="sd">                &#39;param1&#39;: param1,</span>
-<span class="sd">                &#39;param2&#39;: param2</span>
-<span class="sd">            }</span>
-
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    AttributeError</span>
-<span class="sd">        The ``Raises`` section is a list of all exceptions</span>
-<span class="sd">        that are relevant to the interface.</span>
-<span class="sd">    ValueError</span>
-<span class="sd">        If `param2` is equal to `param1`.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Class information visualization&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seq_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
