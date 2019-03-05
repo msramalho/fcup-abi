@@ -2,7 +2,7 @@ import unittest
 from bioseq import ProteinSeq
 
 
-class TestRNASeqMethods(unittest.TestCase):
+class TestProteinSeqMethods(unittest.TestCase):
     def test_constructor(self):
         s = ProteinSeq("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N")
         self.assertEqual("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N", s.sequence)
