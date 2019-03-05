@@ -21,3 +21,8 @@ class DNASeq(BioSeq):
     def codon_usage(self, aminoacid):
         """Given a sequence,  transcript it to RNA and call the respective codon_usage to get the frequency of each codon in it that maps to a specific aminoacid. Returns a dict. """
         return self.transcription().codon_usage(aminoacid)
+
+    def open_reading_frames(self):
+        """Given a sequence, get all the possible open reading frames for each reading frame after transcripting to RNASeq"""
+        for orf in self.transcription().open_reading_frames():
+            yield orf

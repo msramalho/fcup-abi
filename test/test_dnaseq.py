@@ -2,6 +2,9 @@ import unittest
 from bioseq import DNASeq, RNASeq, ProteinSeq
 
 
+example_dna = "ATGAAATTATGAATGAGCCTCAGCTGAAGCATCGCGCATCAGACTACGCTCAGACTCAGACTCAGCATTATAGTGAATGTTAATAAATAAAATAA"
+
+
 class TestDNASeq(unittest.TestCase):
     def test_constructor(self):
         s = DNASeq("ATATATCGCG")
@@ -35,13 +38,20 @@ class TestDNASeq(unittest.TestCase):
         self.assertEqual("AACI_", dna.translation(0).sequence)  # expecting the same as the default
         self.assertEqual("ACI_", dna.translation(3).sequence)  # skip the first codon
         dna = DNASeq("AGCTGCCTGTATTTAG")
-        self.assertEqual("AACI_", dna.translation(1).sequence) # test different start
+        self.assertEqual("AACI_", dna.translation(1).sequence)  # test different start
         dna = DNASeq("AAGCTGCCTGTATTTAG")
-        self.assertEqual("AACI_", dna.translation(2).sequence) # test different start
+        self.assertEqual("AACI_", dna.translation(2).sequence)  # test different start
 
     def test_codon_usage(self):
         dna = DNASeq("GCTGCTGCTGCCGCCGCAGCAGCGGCGGCG")
         self.assertDictEqual({'GCA': 0.2, 'GCC': 0.2, 'GCG': 0.3, 'GCU': 0.3}, dna.codon_usage("A"))
+
+    def test_open_reading_frames(self):
+        dna = DNASeq(example_dna)
+        orf = list(dna.open_reading_frames())
+        self.assertEqual(6, len(orf))
+        self.assertEqual("[['MKL_', 'MSLS_'], [], ['MNEPQLKHRASDYAQTQTQHYSEC_'], [], [], []]", str(orf))
+
 
 if __name__ == '__main__':
     unittest.main()
