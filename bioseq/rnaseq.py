@@ -21,3 +21,22 @@ class RNASeq(BioSeq):
         codons = [k for k, v in type(self).dict_of_aminoacids.items() if v == aminoacid]  # get relevant codons
         rna_codons = [self.sequence[i:i + 3] for i in range(0, len(self) - 2, 3)]  # get all the codons in the dna sequence
         return {codon: rna_codons.count(codon) / len(rna_codons) for codon in codons}  # output the frequency
+
+    def _reading_frames(self):
+        """Given a sequence, get all the possible aminoacid sequences (always 6)"""
+        for i in range(3): yield self.translation(i)
+        rev_seq = RNASeq(self.sequence[::-1])
+        for i in range(3): yield rev_seq.translation(i)
+
+    def open_reading_frames(self):
+        """Given a sequence, get all the possible open reading frames for each reading frame"""
+        for frame in self._reading_frames():
+            orf, ms = [], []
+            for i, f in enumerate(frame):
+                if f == "M": ms.append(i)
+                elif f == "_":
+                    for m in ms: orf.append(frame[m:i+1])
+                    ms = []
+            yield orf
+
+    

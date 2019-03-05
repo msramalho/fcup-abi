@@ -1,6 +1,8 @@
 import unittest
 from bioseq import RNASeq, ProteinSeq
 
+example_rna = "ATGAAATTATGAATGAGCCTCAGCTGAAGCATCGCGCATCAGACTACGCTCAGACTCAGACTCAGCATTATAGTGAATGTTAATAAATAAAATAA".replace("T", "U")
+
 
 class TestRNASeq(unittest.TestCase):
     def test_constructor(self):
@@ -35,6 +37,18 @@ class TestRNASeq(unittest.TestCase):
     def test_codon_usage(self):
         rna = RNASeq("GCUGCUGCUGCCGCCGCAGCAGCGGCGGCG")
         self.assertDictEqual({'GCA': 0.2, 'GCC': 0.2, 'GCG': 0.3, 'GCU': 0.3}, rna.codon_usage("A"))
+
+    def test_reading_frames(self):
+        rna = RNASeq(example_rna)
+        rf = list(rna._reading_frames())
+        self.assertEqual(6, len(rf))
+        self.assertEqual("[PROTEIN: 'MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N', PROTEIN: '_NYE_ASAEASRIRLRSDSDSAL__MLINKI', PROTEIN: 'EIMNEPQLKHRASDYAQTQTQHYSEC__IK_', PROTEIN: 'NKINNCK_YYDSDSDSHQTTRYEVDSE_VLK', PROTEIN: 'IK_IIVSDITTQTQTRIRLRATKSTPSKY_S', PROTEIN: '_NK_L_VILRLRLRLASDYALRSRLRVSIKV']", str(rf))
+
+    def test_open_reading_frames(self):
+        rna = RNASeq(example_rna)
+        orf = list(rna.open_reading_frames())
+        self.assertEqual(6, len(orf))
+        self.assertEqual("[['MKL_', 'MSLS_'], [], ['MNEPQLKHRASDYAQTQTQHYSEC_'], [], [], []]", str(orf))
 
 
 if __name__ == '__main__':
