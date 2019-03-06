@@ -6,6 +6,8 @@ Algorithms for Bionformatics - Exercises and python module
 * Run with [coverage](https://coverage.readthedocs.io/): `coverage run -m unittest discover`
 * Generate (HTML) report: `coverage report` | `coverage html`
 
+![](https://i.imgur.com/uI7VdLS.png)
+
 ## Docs
 Examples for [comments to use](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html#example-numpy)
 
