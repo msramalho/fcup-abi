@@ -3,6 +3,8 @@ Algorithms for Bionformatics
 
 This project contains a python module that is capable of handling biological sequences and perform operations on them, with special focus on DNA, RNA and Protein sequences.
 
+The require report can be found [here](report/report.pdf)
+
 This file should be seen with a Markdown reader _or a human that can read markdown:)_
 
 To use it simply do `import bioseq` or `from bioseq import DNASeq` (for instance).
