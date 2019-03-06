@@ -16,6 +16,7 @@ class TestRNASeq(unittest.TestCase):
         self.assertRaises(Exception, RNASeq, "AUGCGAUT")
         x._assert_valid_sequence_regex()
         x.sequence = "AUGCGAUT"
+        self.assertRaises(Exception, x._assert_valid_sequence)
         self.assertRaises(Exception, x._assert_valid_sequence_regex)
 
     def test_reverse_complement(self):
