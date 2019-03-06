@@ -12,8 +12,11 @@ class TestRNASeq(unittest.TestCase):
         self.assertEqual("RNA", s.seq_type)
 
     def test_custom_assert_valid(self):
-        s = RNASeq("AUGCGAU")
+        x = RNASeq("AUGCGAU")
         self.assertRaises(Exception, RNASeq, "AUGCGAUT")
+        x._assert_valid_sequence_regex()
+        x.sequence = "AUGCGAUT"
+        self.assertRaises(Exception, x._assert_valid_sequence_regex)
 
     def test_reverse_complement(self):
         s = RNASeq("AUCG")

@@ -13,8 +13,10 @@ class TestDNASeq(unittest.TestCase):
         self.assertEqual("DNA", s.seq_type)
 
     def test_custom_assert_valid(self):
-        DNASeq("ATATATCGCG")
+        x = DNASeq("ATATATCGCG")
         self.assertRaises(Exception, DNASeq, "ATATATCGCGU")
+        x.sequence = "ATATATCGCGU"
+        self.assertRaises(Exception, x._assert_valid_sequence_regex)
 
     def test_reverse_complement(self):
         s = DNASeq("ATCG")

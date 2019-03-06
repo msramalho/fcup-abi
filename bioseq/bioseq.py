@@ -1,4 +1,5 @@
 from collections import Counter
+import re
 
 
 class BioSeq(object):
@@ -41,9 +42,15 @@ class BioSeq(object):
             self.seq_type = fin.readline().strip()
             self.sequence = fin.readline().strip()
 
+    def _assert_valid_sequence_regex(self):
+        """assert that all the tokens in the sequence are valid for that sequence type using a regex operator"""
+        tokens = "".join(type(self).valid_tokens)
+        pattern = "^[%s]*$" % (tokens + tokens.lower())
+        assert bool(re.search(pattern, self.sequence)), "%s is not a valid sequence(%s)" % (self.sequence, type(self).valid_tokens)
+
     def _assert_valid_sequence(self):
         """assert that all the tokens in the sequence are valid for that sequence type"""
-        assert all(x in type(self).valid_tokens for x in self.sequence), "%s is not a valid sequence(%s)" % (self.sequence, BioSeq.valid_tokens)
+        assert all(x in type(self).valid_tokens for x in self.sequence), "%s is not a valid sequence(%s)" % (self.sequence, type(self).valid_tokens)
 
     def _assert_seq_type(self):
         """Assert a proper valid has been chosen for seq_type"""
