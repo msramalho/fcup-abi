@@ -150,6 +150,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="s2">&quot;PROTEIN&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_valid_sequence</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ProteinSeq.gc_content"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.proteinseq.ProteinSeq.gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The class ProteinSeq does not have a meaningful implementation for gc_content&quot;</span><span class="p">)</span></div>

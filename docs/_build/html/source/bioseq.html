@@ -189,6 +189,18 @@
 <dd><p>Calculate the gc_content of the sequence</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load object from file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.pretty_print">
+<code class="descname">pretty_print</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.pretty_print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.pretty_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs a prettified and informative string onto the console, describing the current sequence</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="bioseq.bioseq.BioSeq.reverse">
 <code class="descname">reverse</code><em class="property"> = {}</em><a class="headerlink" href="#bioseq.bioseq.BioSeq.reverse" title="Permalink to this definition">¶</a></dt>
@@ -199,6 +211,12 @@
 <dt id="bioseq.bioseq.BioSeq.reverse_complement">
 <code class="descname">reverse_complement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.reverse_complement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.reverse_complement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a Biological sequence, generate the reverse complement sequence for the specific type. Uses the static variable reverse</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save an object to a file</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -235,10 +253,34 @@
 <em class="property">class </em><code class="descclassname">bioseq.dnaseq.</code><code class="descname">DNASeq</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/dnaseq.html#DNASeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.dnaseq.DNASeq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bioseq.bioseq.BioSeq" title="bioseq.bioseq.BioSeq"><code class="xref py py-class docutils literal notranslate"><span class="pre">bioseq.bioseq.BioSeq</span></code></a></p>
 <p>Biological Sequence specific for DNA</p>
+<dl class="method">
+<dt id="bioseq.dnaseq.DNASeq.codon_usage">
+<code class="descname">codon_usage</code><span class="sig-paren">(</span><em>aminoacid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/dnaseq.html#DNASeq.codon_usage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.dnaseq.DNASeq.codon_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sequence,  transcript it to RNA and call the respective codon_usage to get the frequency of each codon in it that maps to a specific aminoacid. Returns a dict.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.dnaseq.DNASeq.open_reading_frames">
+<code class="descname">open_reading_frames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/dnaseq.html#DNASeq.open_reading_frames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.dnaseq.DNASeq.open_reading_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sequence, get all the possible open reading frames for each reading frame after transcripting to RNASeq</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="bioseq.dnaseq.DNASeq.reverse">
 <code class="descname">reverse</code><em class="property"> = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}</em><a class="headerlink" href="#bioseq.dnaseq.DNASeq.reverse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.dnaseq.DNASeq.transcription">
+<code class="descname">transcription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/dnaseq.html#DNASeq.transcription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.dnaseq.DNASeq.transcription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a transcription of the original sequence from DNA to RNA and returns a RNASeq object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.dnaseq.DNASeq.translation">
+<code class="descname">translation</code><span class="sig-paren">(</span><em>start=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/dnaseq.html#DNASeq.translation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.dnaseq.DNASeq.translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DNA sequence, transcript it to RNA and call the respective translation method for RNA sequences. Starts codon split at position <strong>start</strong> (default is 0). Returns a ProteinSeq instance.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="bioseq.dnaseq.DNASeq.valid_tokens">
@@ -255,10 +297,39 @@
 <em class="property">class </em><code class="descclassname">bioseq.rnaseq.</code><code class="descname">RNASeq</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/rnaseq.html#RNASeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.rnaseq.RNASeq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bioseq.bioseq.BioSeq" title="bioseq.bioseq.BioSeq"><code class="xref py py-class docutils literal notranslate"><span class="pre">bioseq.bioseq.BioSeq</span></code></a></p>
 <p>Biological Sequence specific for RNA</p>
+<dl class="method">
+<dt id="bioseq.rnaseq.RNASeq._reading_frames">
+<code class="descname">_reading_frames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/rnaseq.html#RNASeq._reading_frames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.rnaseq.RNASeq._reading_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sequence, get all the possible aminoacid sequences (always 6)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.rnaseq.RNASeq.codon_usage">
+<code class="descname">codon_usage</code><span class="sig-paren">(</span><em>aminoacid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/rnaseq.html#RNASeq.codon_usage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.rnaseq.RNASeq.codon_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sequence, calculate the frequency of each codon in it that maps to a specific aminoacid. Returns a dict.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bioseq.rnaseq.RNASeq.dict_of_aminoacids">
+<code class="descname">dict_of_aminoacids</code><em class="property"> = {'AAA': 'K', 'AAC': 'N', 'AAG': 'K', 'AAU': 'N', 'ACA': 'T', 'ACC': 'T', 'ACG': 'T', 'ACU': 'T', 'AGA': 'R', 'AGC': 'S', 'AGG': 'R', 'AGU': 'S', 'AUA': 'I', 'AUC': 'I', 'AUG': 'M', 'AUU': 'I', 'CAA': 'Q', 'CAC': 'H', 'CAG': 'Q', 'CAU': 'H', 'CCA': 'P', 'CCC': 'P', 'CCG': 'P', 'CCU': 'P', 'CGA': 'R', 'CGC': 'R', 'CGG': 'R', 'CGU': 'R', 'CUA': 'L', 'CUC': 'L', 'CUG': 'L', 'CUU': 'L', 'GAA': 'E', 'GAC': 'D', 'GAG': 'E', 'GAU': 'D', 'GCA': 'A', 'GCC': 'A', 'GCG': 'A', 'GCU': 'A', 'GGA': 'G', 'GGC': 'G', 'GGG': 'G', 'GGU': 'G', 'GUA': 'V', 'GUC': 'V', 'GUG': 'V', 'GUU': 'V', 'UAA': '_', 'UAC': 'Y', 'UAG': '_', 'UAU': 'Y', 'UCA': 'S', 'UCC': 'S', 'UCG': 'S', 'UCU': 'S', 'UGA': '_', 'UGC': 'C', 'UGG': 'W', 'UGU': 'C', 'UUA': 'L', 'UUC': 'F', 'UUG': 'L', 'UUU': 'F'}</em><a class="headerlink" href="#bioseq.rnaseq.RNASeq.dict_of_aminoacids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.rnaseq.RNASeq.open_reading_frames">
+<code class="descname">open_reading_frames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/rnaseq.html#RNASeq.open_reading_frames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.rnaseq.RNASeq.open_reading_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sequence, get all the possible open reading frames for each reading frame</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="bioseq.rnaseq.RNASeq.reverse">
 <code class="descname">reverse</code><em class="property"> = {'A': 'U', 'C': 'G', 'G': 'C', 'U': 'A'}</em><a class="headerlink" href="#bioseq.rnaseq.RNASeq.reverse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.rnaseq.RNASeq.translation">
+<code class="descname">translation</code><span class="sig-paren">(</span><em>start=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/rnaseq.html#RNASeq.translation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.rnaseq.RNASeq.translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an RNA sequence, translate its 3-token codons into the respective aminoacids. Starts codon split at position <strong>start</strong> (default is 0). Returns a ProteinSeq instance.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="bioseq.rnaseq.RNASeq.valid_tokens">

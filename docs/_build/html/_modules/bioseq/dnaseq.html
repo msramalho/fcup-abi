@@ -142,6 +142,7 @@
             
   <h1>Source code for bioseq.dnaseq</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">bioseq</span> <span class="k">import</span> <span class="n">BioSeq</span>
+<span class="kn">from</span> <span class="nn">.rnaseq</span> <span class="k">import</span> <span class="n">RNASeq</span>
 
 
 <div class="viewcode-block" id="DNASeq"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.dnaseq.DNASeq">[docs]</a><span class="k">class</span> <span class="nc">DNASeq</span><span class="p">(</span><span class="n">BioSeq</span><span class="p">):</span>
@@ -150,7 +151,25 @@
     <span class="n">reverse</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="s2">&quot;DNA&quot;</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="s2">&quot;DNA&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_valid_sequence</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DNASeq.transcription"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.dnaseq.DNASeq.transcription">[docs]</a>    <span class="k">def</span> <span class="nf">transcription</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Performs a transcription of the original sequence from DNA to RNA and returns a RNASeq object&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">RNASeq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="DNASeq.translation"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.dnaseq.DNASeq.translation">[docs]</a>    <span class="k">def</span> <span class="nf">translation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a DNA sequence, transcript it to RNA and call the respective translation method for RNA sequences. Starts codon split at position **start** (default is 0). Returns a ProteinSeq instance. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transcription</span><span class="p">()</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DNASeq.codon_usage"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.dnaseq.DNASeq.codon_usage">[docs]</a>    <span class="k">def</span> <span class="nf">codon_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aminoacid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a sequence,  transcript it to RNA and call the respective codon_usage to get the frequency of each codon in it that maps to a specific aminoacid. Returns a dict. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transcription</span><span class="p">()</span><span class="o">.</span><span class="n">codon_usage</span><span class="p">(</span><span class="n">aminoacid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DNASeq.open_reading_frames"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.dnaseq.DNASeq.open_reading_frames">[docs]</a>    <span class="k">def</span> <span class="nf">open_reading_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a sequence, get all the possible open reading frames for each reading frame after transcripting to RNASeq&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">orf</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transcription</span><span class="p">()</span><span class="o">.</span><span class="n">open_reading_frames</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">orf</span></div></div>
 </pre></div>
 
            </div>
