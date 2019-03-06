@@ -28,7 +28,18 @@ class BioSeq(object):
 
     def pretty_print(self):
         print("""Sequence Type:   %s\nLength:          %d\nToken frequency: %s\nSequence:\n%s""" % (
-            self.seq_type, len(self), self.frequency(), "\n".join(self.sequence[i:i+80] for i in range(0, len(self), 80))))
+            self.seq_type, len(self), self.frequency(), "\n".join(self.sequence[i:i + 80] for i in range(0, len(self), 80))))
+
+    def save(self, filename):
+        """Save an object to a file"""
+        with open(filename, "w") as fout:
+            fout.write("%s\n%s" % (self.seq_type, self.sequence))
+
+    def load(self, filename):
+        """Load object from file"""
+        with open(filename) as fin:
+            self.seq_type = fin.readline().strip()
+            self.sequence = fin.readline().strip()
 
     def _assert_valid_sequence(self):
         """assert that all the tokens in the sequence are valid for that sequence type"""

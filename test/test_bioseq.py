@@ -1,4 +1,5 @@
 import io
+import os
 import unittest
 import unittest.mock
 from bioseq import BioSeq
@@ -78,6 +79,16 @@ class TestBioSeq(unittest.TestCase):
     def test_pretty_print(self):
         s = BioSeq("ATATACAGATGAT", "DNA")
         self._test_pretty_print(s)
+
+    def test_save_load(self):
+        filename = "test_save_load.tmp"
+        s = BioSeq("ATATACAGATGAT", "DNA")
+        s.save(filename)
+        s2 = BioSeq("", "RNA")
+        s2.load(filename)
+        self.assertEqual(s.seq_type, s2.seq_type)
+        self.assertEqual(s.sequence, s2.sequence)
+        os.remove(filename)
 
 
 if __name__ == '__main__':
