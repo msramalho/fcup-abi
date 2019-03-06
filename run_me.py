@@ -8,12 +8,12 @@ def sep(do_input=True):
         input()
     print("-" * 60)
 
-
+print("Hello!!\n")
 print("This file will exemplify the capabilities of the developed project, this is an iterative process and you need to press enter to move from example to example, ok?")
 
 sep()
 
-print("You can create instances of BioSeq ( with explicit sequence type) or one of the child classes DNASeq, RNASeq or ProteinSeq. Each has some common functions and some more specific. Let's create an instance of each...")
+print("You can create instances of BioSeq (with explicit sequence type) or one of the child classes DNASeq, RNASeq or ProteinSeq. \nEach has some common functions and some more specific. \nLet's create an instance of each...")
 bs = BioSeq("ATCTCGTGCTGCTACG", "DNA")
 print("Bioseq:", bs)
 dna = DNASeq("ATCTGCTGCTC")
@@ -82,4 +82,4 @@ sep()
 
 print("Now all the developed tests will be invoked, they thouroughly test the module and guarantee 100% coverage. ok?")
 input()
-print(subprocess.call("coverage run -m unittest discover -v".split()))
+subprocess.call("coverage run -m unittest discover -v".split())
