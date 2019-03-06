@@ -11,6 +11,7 @@ class RNASeq(BioSeq):
 
     def __init__(self, sequence):
         super().__init__(sequence, "RNA")
+        self._assert_valid_sequence()
 
     def translation(self, start=0):
         """Given an RNA sequence, translate its 3-token codons into the respective aminoacids. Starts codon split at position **start** (default is 0). Returns a ProteinSeq instance."""

@@ -11,8 +11,7 @@ class BioSeq(object):
         """Constructor for the Bio Sequence class"""
         self.sequence = sequence.upper()  #: The current sequence
         self.seq_type = seq_type.upper()  #: DNA, RNA, PROTEIN
-        assert self._assert_seq_type(), "%s is not a valid sequence type(%s)" % (self.seq_type, BioSeq.valid_types)
-        # assert self._assert_valid_sequence(), "%s is not a valid sequence(%s)" % (self.sequence, BioSeq.valid_tokens)
+        self._assert_seq_type()
 
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""
@@ -27,6 +26,7 @@ class BioSeq(object):
         return "".join(type(self).reverse[x] for x in self.sequence)[::-1]
 
     def pretty_print(self):
+        """Outputs a prettified and informative string onto the console, describing the current sequence"""
         print("""Sequence Type:   %s\nLength:          %d\nToken frequency: %s\nSequence:\n%s""" % (
             self.seq_type, len(self), self.frequency(), "\n".join(self.sequence[i:i + 80] for i in range(0, len(self), 80))))
 
@@ -43,11 +43,11 @@ class BioSeq(object):
 
     def _assert_valid_sequence(self):
         """assert that all the tokens in the sequence are valid for that sequence type"""
-        return all(x in type(self).valid_tokens for x in self.sequence)
+        assert all(x in type(self).valid_tokens for x in self.sequence), "%s is not a valid sequence(%s)" % (self.sequence, BioSeq.valid_tokens)
 
     def _assert_seq_type(self):
         """Assert a proper valid has been chosen for seq_type"""
-        return self.seq_type in BioSeq.valid_types
+        assert self.seq_type in BioSeq.valid_types, "%s is not a valid sequence type(%s)" % (self.seq_type, BioSeq.valid_types)
 
     def __len__(self):
         """Get the length of the sequence - number of tokens"""

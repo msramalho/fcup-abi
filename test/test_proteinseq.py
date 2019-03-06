@@ -9,10 +9,8 @@ class TestProteinSeq(unittest.TestCase):
         self.assertEqual("PROTEIN", s.seq_type)
     
     def test_custom_assert_valid(self):
-        s = ProteinSeq("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N")
-        self.assertTrue(s._assert_valid_sequence())
-        s.sequence+="2"
-        self.assertFalse(s._assert_valid_sequence())
+        ProteinSeq("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N")
+        self.assertRaises(Exception, ProteinSeq, "MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N2")
 
     def test_gc_content(self):
         s = ProteinSeq("MKL_MSLS_SIAHQTTLRLRLSIIVNVNK_N")

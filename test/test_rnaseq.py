@@ -13,9 +13,7 @@ class TestRNASeq(unittest.TestCase):
 
     def test_custom_assert_valid(self):
         s = RNASeq("AUGCGAU")
-        self.assertTrue(s._assert_valid_sequence())
-        s.sequence += "T"
-        self.assertFalse(s._assert_valid_sequence())
+        self.assertRaises(Exception, RNASeq, "AUGCGAUT")
 
     def test_reverse_complement(self):
         s = RNASeq("AUCG")

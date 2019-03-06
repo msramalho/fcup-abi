@@ -9,6 +9,7 @@ class DNASeq(BioSeq):
 
     def __init__(self, sequence):
         super().__init__(sequence, "DNA")
+        self._assert_valid_sequence()
 
     def transcription(self):
         """Performs a transcription of the original sequence from DNA to RNA and returns a RNASeq object"""

@@ -28,13 +28,9 @@ class TestBioSeq(unittest.TestCase):
 
     def test_assert_seq_type(self):
         s = BioSeq("ATATAT", "DNA")
-        self.assertTrue(s._assert_seq_type())
-        s.seq_type = "RNA"
-        self.assertTrue(s._assert_seq_type())
-        s.seq_type = "PROTEIN"
-        self.assertTrue(s._assert_seq_type())
-        s.seq_type = "ERROR"
-        self.assertFalse(s._assert_seq_type())
+        s = BioSeq("ATATAT", "RNA")
+        s = BioSeq("ATATAT", "PROTEIN")
+        self.assertRaises(Exception, BioSeq, "ATATA", "asd")
 
     def test_str(self):
         s = BioSeq("ATATAT", "DNA")
@@ -92,4 +88,4 @@ class TestBioSeq(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)

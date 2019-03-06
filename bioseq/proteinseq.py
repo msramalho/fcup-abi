@@ -7,6 +7,7 @@ class ProteinSeq(BioSeq):
 
     def __init__(self, sequence):
         super().__init__(sequence, "PROTEIN")
+        self._assert_valid_sequence()
 
     def gc_content(self):
         raise NotImplementedError("The class ProteinSeq does not have a meaningful implementation for gc_content")
