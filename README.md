@@ -1,5 +1,15 @@
-# fcup-abi
-Algorithms for Bionformatics - Exercises and python module
+# Fcup ABI
+Algorithms for Bionformatics
+
+This project contains a python module that is capable of handling biological sequences and perform operations on them, with special focus on DNA, RNA and Protein sequences.
+
+This file should be seen with a Markdown reader _or a human that can read markdown:)_
+
+To use it simply do `import bioseq` or `from bioseq import DNASeq` (for instance).
+
+You can run `python run_me.py` to see some examples of what this tool does. 
+
+Additionally, there are tests that guarantee 100% coverage (see [html version of coverage report here](htmlcov/index.html)) and there is human friendly documentation [here](docs/_build/html/index.html).
 
 ## Tests
 * Run tests: `python -m unittest discover`
@@ -9,8 +19,6 @@ Algorithms for Bionformatics - Exercises and python module
 ![](https://i.imgur.com/uI7VdLS.png)
 
 ## Docs
-Examples for [comments to use](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html#example-numpy)
-
-`cd bioseq/docs`
+To generate the docs again, `cd bioseq/docs` and:
  * Windows: `make.bat html`
  * Linux: `make html`

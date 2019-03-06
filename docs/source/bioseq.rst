@@ -4,8 +4,8 @@ bioseq package
 Submodules
 ----------
 
-bioseq module
---------------------
+Biological Sequence module
+-------------------------------
 
 .. automodule:: bioseq.bioseq
     :members:
@@ -14,8 +14,8 @@ bioseq module
     :private-members:
 
 
-dnaseq module
---------------------
+DNA Sequence module
+-------------------------------
 .. automodule:: bioseq.dnaseq
     :members:
     :undoc-members:
@@ -23,8 +23,8 @@ dnaseq module
     :private-members:
 
 
-rnaseq module
---------------------
+RNA Sequence module
+-------------------------------
 .. automodule:: bioseq.rnaseq
     :members:
     :undoc-members:
@@ -32,8 +32,8 @@ rnaseq module
     :private-members:
 
 
-proteinseq module
---------------------
+Protein Sequence module
+-------------------------------
 .. automodule:: bioseq.proteinseq
     :members:
     :undoc-members:
@@ -42,7 +42,7 @@ proteinseq module
 
 
 utils module
---------------------
+-------------------------------
 .. automodule:: bioseq.utils
     :members:
     :undoc-members:
