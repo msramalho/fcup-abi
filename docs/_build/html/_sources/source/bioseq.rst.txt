@@ -41,6 +41,15 @@ proteinseq module
     :private-members:
 
 
+utils module
+--------------------
+.. automodule:: bioseq.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+
 Module contents
 ---------------
 

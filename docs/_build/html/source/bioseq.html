@@ -86,6 +86,7 @@
 <li><a class="reference internal" href="#module-bioseq.dnaseq">dnaseq module</a></li>
 <li><a class="reference internal" href="#module-bioseq.rnaseq">rnaseq module</a></li>
 <li><a class="reference internal" href="#module-bioseq.proteinseq">proteinseq module</a></li>
+<li><a class="reference internal" href="#module-bioseq.utils">utils module</a></li>
 <li><a class="reference internal" href="#module-bioseq">Module contents</a></li>
 </ul>
 </li>
@@ -363,6 +364,21 @@
 <code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y', '_'}</em><a class="headerlink" href="#bioseq.proteinseq.ProteinSeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioseq.utils">
+<span id="utils-module"></span><h2>utils module<a class="headerlink" href="#module-bioseq.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="bioseq.utils.get_dict_of_dna_to_aminoacids">
+<code class="descclassname">bioseq.utils.</code><code class="descname">get_dict_of_dna_to_aminoacids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#get_dict_of_dna_to_aminoacids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.get_dict_of_dna_to_aminoacids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dictionary that maps RNA codons onto their respective proteins</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioseq.utils.read_fasta">
+<code class="descclassname">bioseq.utils.</code><code class="descname">read_fasta</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#read_fasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.read_fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that reads a FASTA file into a list of its ProteinSeq entries. Returns list of tuples (comment, ProteinSeq)</p>
 </dd></dl>
 
 </div>
