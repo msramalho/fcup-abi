@@ -1,6 +1,8 @@
 # Fcup ABI
 Algorithms for Bionformatics
 
+[![Bioseq Module Build Status](https://travis-ci.com/msramalho/fcup-abi.svg?token=peexEWPZnZuwQpsysvdo&branch=master)](https://travis-ci.com/msramalho/fcup-abi)
+
 This project contains a python module that is capable of handling biological sequences and perform operations on them, with special focus on DNA, RNA and Protein sequences.
 
 The require report can be found [here](report/report.pdf).
