@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.6"
+cache: pip
+install:
+  - pip install coverage
+script:
+  - coverage run -m unittest discover
+  - coverage report --include="bioseq/*"
+notifications:
+  email: false
