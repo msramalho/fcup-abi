@@ -3,9 +3,13 @@ python:
   - "3.6"
 cache: pip
 install:
-  - pip install coverage
+  - pip install coverage pushbullet.py
 script:
   - coverage run -m unittest discover
   - coverage report --include="bioseq/*"
+after_failure:
+  - python pushbullet_notify.py "FAILURE"
+after_success:
+  - python pushbullet_notify.py "SUCCESS"
 notifications:
   email: false
