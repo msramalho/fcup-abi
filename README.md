@@ -5,7 +5,7 @@ Algorithms for Bionformatics
 
 This project contains a python module that is capable of handling biological sequences and perform operations on them, with special focus on DNA, RNA and Protein sequences.
 
-The require report can be found [here](report/report.pdf).
+ * The delivery 1 report can be found [here](report/report_1.pdf).
 
 This file should be seen with a Markdown reader _or a human that can read markdown :)_.
 
