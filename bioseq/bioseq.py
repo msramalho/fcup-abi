@@ -14,6 +14,11 @@ class BioSeq(object):
         self.seq_type = seq_type.upper()  #: DNA, RNA, PROTEIN
         self._assert_seq_type()
 
+    def hamming_distance(self, seq):
+        """implements a hamming distance calculator"""
+        assert len(self) == len(seq), "Hamming distance is only possible between same length sequences"
+        return sum(self[i] != seq[i] for i in range(len(self)))
+
     def global_align_multiple_solutions(self):
         """Needleman–Wunsch"""
         pass

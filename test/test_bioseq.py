@@ -85,6 +85,18 @@ class TestBioSeq(unittest.TestCase):
         self.assertEqual(s.sequence, s2.sequence)
         os.remove(filename)
 
+    def test_hamming_distance(self):
+        s1 = BioSeq("ATATACAGATGAT", "DNA")
+        s2 = BioSeq("ATATACAGATGAT", "DNA")
+        self.assertEqual(0, s1.hamming_distance(s2))
+        self.assertEqual(0, s2.hamming_distance(s1))
+        s3 = BioSeq("ATATACAGATGAX", "DNA")
+        self.assertEqual(1, s1.hamming_distance(s3))
+        self.assertEqual(1, s3.hamming_distance(s1))
+        s4 = BioSeq("AAA", "DNA")
+        self.assertRaises(Exception, s1.hamming_distance, s4)
+
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
