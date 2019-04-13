@@ -1,4 +1,6 @@
 import bioseq
+from pkgutil import iter_modules
+
 
 def get_dict_of_dna_to_aminoacids():
     """Get a dictionary that maps RNA codons onto their respective proteins"""
@@ -12,3 +14,8 @@ def read_fasta(filename):
         for f in fastas[1:]:  # ignore the first empty
             p = f.split("\n")
             yield (p[0], bioseq.proteinseq.ProteinSeq("".join(p[1:])))
+
+
+def module_exists(module_name):
+    """Test if a module exists"""
+    return module_name in (name for loader, name, ispkg in iter_modules())
