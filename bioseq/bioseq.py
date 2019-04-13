@@ -14,6 +14,30 @@ class BioSeq(object):
         self.seq_type = seq_type.upper()  #: DNA, RNA, PROTEIN
         self._assert_seq_type()
 
+    def global_align_multiple_solutions(self):
+        """Needleman–Wunsch"""
+        pass
+
+    def recover_global_align_multiple_solutions(self):
+        """"""
+        pass
+
+    def local_align_multiple_solutions(self):
+        """Smith–Waterman"""
+        pass
+
+    def recover_local_align_multiple_solutions(self):
+        """"""
+        pass
+
+    def compare_pairwise_global_align(self):
+        """"""
+        pass
+
+    def compare_pairwise_local_align(self):
+        """"""
+        pass
+
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""
         return {k: v / len(self) for k, v in Counter(self.sequence).items()}
