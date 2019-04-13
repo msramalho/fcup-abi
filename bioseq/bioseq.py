@@ -26,7 +26,7 @@ class BioSeq(object):
         m.apply(lambda _, i, j: int(self[i] == seq[j]))
         return m
 
-    def display_dot_plot(self, m):
+    def display_dot_plot(self, m):  # pragma: no cover
         """Display the dot_plot in a plot if matplotlib is installed"""
         m.display()
 

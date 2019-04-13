@@ -1,4 +1,5 @@
 import io
+import os
 import unittest
 import unittest.mock
 from bioseq import Matrix
@@ -57,7 +58,6 @@ class TestMatrix(unittest.TestCase):
         m = Matrix(10, 5, 3)
         self.assertFalse(m.square())
 
-    
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def _test_str(self, m, mock_stdout):
         print(m)
@@ -65,10 +65,17 @@ class TestMatrix(unittest.TestCase):
         self.assertEqual(len(output), 131)
         self.assertIn("12", output)
 
-    
     def test_str(self):
         m = Matrix(10, 4, 12)
         self._test_str(m)
+
+    def test_display(self):
+        filename = "temp_matrix.png"
+        m = Matrix(10, 4, 1)
+        m[0][0]=0
+        m.display(filename)
+        os.remove(filename)
+
 
 if __name__ == '__main__':
     unittest.main()

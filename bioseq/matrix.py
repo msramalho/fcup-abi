@@ -1,3 +1,5 @@
+from .utils import module_exists
+
 
 class Matrix:
     """Wrapper class to provide a numerical matrix interface with relevant and reusable functions"""
@@ -40,14 +42,17 @@ class Matrix:
         """Test if matrix is squared"""
         return len(self) == len(self[0])
 
-    def display(self, save_to=False):
+    def display(self, save_to=False):  # pragma: no cover
         """Display the matrix in a plot if matplotlib is installed. If save_to is used the plot is saved and not shown."""
+        if not module_exists("matplotlib"):
+            return False
         import matplotlib.pyplot as plt
         plt.spy(self)
         if save_to:
             plt.savefig(save_to)
         else:
             plt.show()
+        return True
 
     def __len__(self):
         """Get the length of the matrix - number of rows"""
