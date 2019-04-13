@@ -3,3 +3,4 @@ from bioseq.dnaseq import DNASeq
 from bioseq.rnaseq import RNASeq
 from bioseq.proteinseq import ProteinSeq
 from bioseq.utils import *
+from bioseq.matrix import *
