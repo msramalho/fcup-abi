@@ -78,8 +78,8 @@ class Matrix:
 
     def __str__(self):
         """pretty print matrix"""
-        mi, ma = self.min(), self.max()
-        w = max(len(str(mi)), len(str(ma)))  # determine the necessary width
+        # determine the necessary width
+        w = max(len(str(c)) for r in self for c in r)
         res = ""
         for r in self:
             res += (("%%%ds " % w) * len(r) % tuple(r)) + "\n"
