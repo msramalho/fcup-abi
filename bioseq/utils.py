@@ -19,3 +19,19 @@ def read_fasta(filename):
 def module_exists(module_name):
     """Test if a module exists"""
     return module_name in (name for loader, name, ispkg in iter_modules())
+
+
+def substitution_matrix(alphabet, match, mismatch):
+    """Generate a substitution matrix from an alphabet, matcha and mismatch values"""
+    return {x+y: match if x == y else mismatch for x in alphabet for y in alphabet}
+
+
+def read_substitution_matrix_file(filename):
+    """read substitution matrix from file """
+    sm = {}
+    with open(filename) as f:
+        alphabet = next(f).split()
+        for c in alphabet:
+            for i, v in enumerate(map(int, next(f).split())):
+                sm[c + alphabet[i]] = v
+    return sm

@@ -15,6 +15,15 @@ class TestUtils(unittest.TestCase):
         self.assertFalse(module_exists("adfkaodfn"))
         self.assertTrue(module_exists("collections"))
 
+    def test_substitution_matrix(self):
+        self.assertDictEqual({"AA": 2, "TT": 2, "AT": -3, "TA": -3}, substitution_matrix("AT", 2, -3))
+
+    def test_read_substitution_matrix_file(self):
+        sm = read_substitution_matrix_file("test/blosum62.mat")
+        self.assertEqual(400, len(sm))
+        for k in sm:
+            self.assertEqual(sm[k], sm[k[::-1]])
+
 
 if __name__ == '__main__':
     unittest.main()
