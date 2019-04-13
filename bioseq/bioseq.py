@@ -1,6 +1,7 @@
 from collections import Counter
 import re
 from .matrix import Matrix
+from .utils import *
 
 
 class BioSeq(object):
@@ -25,6 +26,11 @@ class BioSeq(object):
         m = Matrix(len(self), len(seq))
         m.apply(lambda _, i, j: int(self[i] == seq[j]))
         return m
+
+    def score_seq(self, seq, sm, g):
+        """Calculate the score of aligning two sequences, given a gap and substitution matrix"""
+        assert len(self) == len(seq), "Sequences should have the same length"
+        return sum(score_pos(self[i], seq[i], sm, g) for i in range(len(self)))
 
     def display_dot_plot(self, m):  # pragma: no cover
         """Display the dot_plot in a plot if matplotlib is installed"""

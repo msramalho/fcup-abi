@@ -3,6 +3,7 @@ import os
 import unittest
 import unittest.mock
 from bioseq import BioSeq
+from bioseq.utils import *
 
 
 class TestBioSeq(unittest.TestCase):
@@ -104,6 +105,12 @@ class TestBioSeq(unittest.TestCase):
         s3 = BioSeq("XXXT", "DNA")
         m = s1.dot_plot(s3)
         self.assertEqual(m.sum(), 2)
+
+    def test_score_seq(self):
+        sm = substitution_matrix("ATCG", 2, -3)
+        s1 = BioSeq("ATAT", "DNA")
+        s2 = BioSeq("ATAG", "DNA")
+        self.assertEqual(3, s1.score_seq(s2, sm, 3))
 
 
 

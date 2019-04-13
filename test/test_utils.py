@@ -24,12 +24,12 @@ class TestUtils(unittest.TestCase):
         for k in sm:
             self.assertEqual(sm[k], sm[k[::-1]])
 
-    def test_score_column(self):
+    def test_score_pos(self):
         sm = substitution_matrix("ATCG", 2, -3)
-        self.assertEqual(2,  score_column("A", "A", sm, -5))
-        self.assertEqual(-5, score_column("_", "A", sm, -5))
-        self.assertEqual(-5, score_column("T", "_", sm, -5))
-        self.assertEqual(-3, score_column("G", "C", sm, -5))
+        self.assertEqual(2,  score_pos("A", "A", sm, -5))
+        self.assertEqual(-5, score_pos("_", "A", sm, -5))
+        self.assertEqual(-5, score_pos("T", "_", sm, -5))
+        self.assertEqual(-3, score_pos("G", "C", sm, -5))
 
 if __name__ == '__main__':
     unittest.main()
