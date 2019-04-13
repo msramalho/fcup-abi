@@ -10,16 +10,22 @@ class TestMatrix(unittest.TestCase):
         m = Matrix(10, 10)
         self.assertEqual(10, len(m))
         self.assertEqual(10, len(m[0]))
-        for r in m:
-            self.assertTrue(all(c == 0 for c in r))
+        for r in m: self.assertTrue(all(c == 0 for c in r))
         m = Matrix(10, 10, True)
-        for r in m:
-            self.assertTrue(all(r))
+        for r in m: self.assertTrue(all(r))
         m = Matrix(10, 10, False)
-        for r in m:
-            self.assertFalse(any(r))
+        for r in m: self.assertFalse(any(r))
         self.assertEqual(len(m[3:10:2]), 4)
         self.assertEqual(len(m[3:10]), 7)
+        # setitem
+        m[0] = list(range(10))
+        self.assertEqual(m[0], list(range(10)))
+        self.assertRaises(Exception, m.__setitem__, 0, [1])
+        # set_col
+        m.set_col(0, list(range(10)))
+        self.assertEqual(m[3][0], 3)
+        self.assertRaises(Exception, m.set_col, 0, [1])
+        # invalid matrix sizes
         self.assertRaises(Exception, Matrix, -1, 10)
         self.assertRaises(Exception, Matrix, 10, -1)
         self.assertRaises(Exception, Matrix, 0, 5)
@@ -72,7 +78,7 @@ class TestMatrix(unittest.TestCase):
     def test_display(self):
         filename = "temp_matrix.png"
         m = Matrix(10, 4, 1)
-        m[0][0]=0
+        m[0][0] = 0
         m.display(filename)
         os.remove(filename)
 

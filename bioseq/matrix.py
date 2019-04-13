@@ -58,9 +58,19 @@ class Matrix:
         """Get the length of the matrix - number of rows"""
         return len(self.matrix)
 
-    def __getitem__(self, index):
+    def __setitem__(self, row, val):
+        """set value of row"""
+        assert len(val) == len(self.matrix[row]), "New row dimensions must match"
+        self.matrix[row] = val
+
+    def set_col(self, col, val):
+        """set value of col"""
+        assert len(val) == len(self.matrix), "New col dimensions must match"
+        for i, row in enumerate(self): row[col] = val[i]
+
+    def __getitem__(self, row):
         """get specific row of matrix"""
-        return self.matrix[index]
+        return self.matrix[row]
 
     def __iter__(self):
         """iterator for the matrix, returns each row"""
