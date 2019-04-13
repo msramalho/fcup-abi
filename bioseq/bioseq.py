@@ -1,7 +1,14 @@
-from collections import Counter
 import re
+from operator import itemgetter
+from collections import Counter
 from .matrix import Matrix
 from .utils import *
+
+# traceback settings
+TERMINATION = -1
+DIAGONAL = 0
+VERTICAL = 1
+HORIZONTAL = 2
 
 
 class BioSeq(object):
@@ -52,12 +59,27 @@ class BioSeq(object):
 
     def global_align_multiple_solutions(self, seq, sm, g):
         """Needleman–Wunsch"""
-        m = Matrix(len(self) + 1, len(seq) + 1)
-        m[0] = [i * g for i in range(len(seq) + 1)]
-        print(m)
+        # create the score and traceback matrices
+        s = Matrix(len(self) + 1, len(seq) + 1)
+        t = Matrix(len(self) + 1, len(seq) + 1, [TERMINATION])
+        # set the row and col to gaps
+        s[0] = [i * g for i in range(len(seq) + 1)]
+        s.set_col(0, [i * g for i in range(len(self) + 1)])
+        # set the row and col to default directions
+        t[0] = [[HORIZONTAL]] * (len(seq) + 1)
+        t.set_col(0, [[VERTICAL]] * (len(self) + 1))
+        # fill score matrix
+        for i in range(1, len(self) + 1):  # for each row
+            for j in range(1, len(seq) + 1):  # for each col
+                d = [s[i - 1][j - 1] + sm[self[i - 1] + seq[j - 1]], s[i - 1][j] + g, s[i][j - 1] + g]
+                s[i][j] = max(d) # set the score
+                t[i][j] = [k for k, v in enumerate(d) if v == s[i][j]] # set directions
+        print(s)
+        print(t)
+        return s, t
 
-    def recover_global_align_multiple_solutions(self):
-        """"""
+    def recover_global_align_multiple_solutions(self, seq, s, t):
+        """Given two sequences and their Score and Traceback global alignment functions, return all the solutions"""
         pass
 
     def local_align_multiple_solutions(self):
