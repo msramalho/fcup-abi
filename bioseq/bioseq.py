@@ -27,18 +27,34 @@ class BioSeq(object):
         m.apply(lambda _, i, j: int(self[i] == seq[j]))
         return m
 
+    def display_dot_plot(self, m):  # pragma: no cover
+        """Display the dot_plot in a plot if matplotlib is installed"""
+        m.display()
+
     def score_seq(self, seq, sm, g):
         """Calculate the score of aligning two sequences, given a gap and substitution matrix"""
         assert len(self) == len(seq), "Sequences should have the same length"
         return sum(score_pos(self[i], seq[i], sm, g) for i in range(len(self)))
 
-    def display_dot_plot(self, m):  # pragma: no cover
-        """Display the dot_plot in a plot if matplotlib is installed"""
-        m.display()
+    def score_affine_gap(self, seq, sm, g, r):
+        """Calculate the affine gap score, using the gap penalty and the keep gap penalty"""
+        assert len(self) == len(seq), "Sequences should have the same length"
+        gap = False
+        res = 0
+        for i in range(len(self)):
+            if self[i] == GAP or seq[i] == GAP:
+                if not gap: gap = True; r += g
+                else: res += r
+            else:
+                gap = False
+                res += sm[self[i] + seq[i]]
+        return res
 
-    def global_align_multiple_solutions(self):
+    def global_align_multiple_solutions(self, seq, sm, g):
         """Needleman–Wunsch"""
-        pass
+        m = Matrix(len(self) + 1, len(seq) + 1)
+        m[0] = [i * g for i in range(len(seq) + 1)]
+        print(m)
 
     def recover_global_align_multiple_solutions(self):
         """"""

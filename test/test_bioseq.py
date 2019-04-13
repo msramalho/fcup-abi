@@ -112,6 +112,11 @@ class TestBioSeq(unittest.TestCase):
         s2 = BioSeq("ATAG", "DNA")
         self.assertEqual(3, s1.score_seq(s2, sm, 3))
 
+    def test_score_affine_gap(self):
+        sm = read_substitution_matrix_file("test/blosum62.mat")
+        s1 = BioSeq("LGPSSGCASRIWTKSA", "PROTEIN")
+        s2 = BioSeq("TGPS_G__S_IWSKSG", "PROTEIN")
+        self.assertEqual(33, s1.score_affine_gap(s2, sm, -8, -2))
 
 
 if __name__ == '__main__':
