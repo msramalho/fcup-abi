@@ -1,5 +1,6 @@
 from collections import Counter
 import re
+from .matrix import Matrix
 
 
 class BioSeq(object):
@@ -18,6 +19,16 @@ class BioSeq(object):
         """implements a hamming distance calculator"""
         assert len(self) == len(seq), "Hamming distance is only possible between same length sequences"
         return sum(self[i] != seq[i] for i in range(len(self)))
+
+    def dot_plot(self, seq):
+        """create a dotplot between two sequences. Returns a Matrix"""
+        m = Matrix(len(self), len(seq))
+        m.apply(lambda _, i, j: int(self[i] == seq[j]))
+        return m
+
+    def display_dot_plot(self, m):
+        """Display the dot_plot in a plot if matplotlib is installed"""
+        m.display()
 
     def global_align_multiple_solutions(self):
         """Needleman–Wunsch"""

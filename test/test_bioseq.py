@@ -96,6 +96,15 @@ class TestBioSeq(unittest.TestCase):
         s4 = BioSeq("AAA", "DNA")
         self.assertRaises(Exception, s1.hamming_distance, s4)
 
+    def test_dot_plot(self):
+        s1 = BioSeq("ATAT", "DNA")
+        s2 = BioSeq("ATAT", "DNA")
+        m = s1.dot_plot(s2)
+        self.assertEqual(m.sum(), 8)
+        s3 = BioSeq("XXXT", "DNA")
+        m = s1.dot_plot(s3)
+        self.assertEqual(m.sum(), 2)
+
 
 
 if __name__ == '__main__':
