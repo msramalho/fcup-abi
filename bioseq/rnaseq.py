@@ -1,5 +1,5 @@
 from bioseq import BioSeq
-from .utils import get_dict_of_dna_to_aminoacids
+from .utils import get_dict_of_dna_to_aminoacids, GAP
 from .proteinseq import ProteinSeq
 
 
@@ -35,7 +35,7 @@ class RNASeq(BioSeq):
             orf, ms = [], []
             for i, f in enumerate(frame):
                 if f == "M": ms.append(i)
-                elif f == "_":
+                elif f == GAP:
                     for m in ms: orf.append(frame[m:i+1])
                     ms = []
             yield orf
