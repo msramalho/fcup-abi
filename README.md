@@ -23,6 +23,6 @@ Additionally, there are tests that guarantee 100% coverage (see [html version of
 ![](https://i.imgur.com/uI7VdLS.png)
 
 ## Docs
-To generate the docs again, `cd bioseq/docs` and:
+To generate the docs again, `cd ./docs` and:
  * Windows: `make.bat html`
  * Linux: `make html`
