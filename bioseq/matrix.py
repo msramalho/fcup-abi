@@ -13,19 +13,19 @@ class Matrix:
 
     def add_val(self, val):
         """add a value to all cells in the matrix. Returns self"""
-        self._apply(lambda x: x + val)
+        self.apply(lambda x, _i, _j: x + val)
         return self
 
     def mul_val(self, val):
         """multiply a value by all cells in the matrix. Returns self"""
-        self._apply(lambda x: x * val)
+        self.apply(lambda x, _i, _j: x * val)
         return self
 
-    def _apply(self, operation):
-        """general private method to apply an operation to each cell"""
+    def apply(self, operation):
+        """general private method to apply an operation to each cell. The operation should receive (cell value, row index, col index)"""
         for i in range(len(self)):
             for j in range(len(self[i])):
-                self[i][j] = operation(self[i][j])
+                self[i][j] = operation(self[i][j], i, j)
         return self
 
     def max(self):
@@ -40,6 +40,15 @@ class Matrix:
         """Test if matrix is squared"""
         return len(self) == len(self[0])
 
+    def display(self, save_to=False):
+        """Display the matrix in a plot if matplotlib is installed. If save_to is used the plot is saved and not shown."""
+        import matplotlib.pyplot as plt
+        plt.spy(self)
+        if save_to:
+            plt.savefig(save_to)
+        else:
+            plt.show()
+
     def __len__(self):
         """Get the length of the matrix - number of rows"""
         return len(self.matrix)
@@ -51,3 +60,12 @@ class Matrix:
     def __iter__(self):
         """iterator for the matrix, returns each row"""
         yield from self.matrix
+
+    def __str__(self):
+        """pretty print matrix"""
+        mi, ma = self.min(), self.max()
+        w = max(len(str(mi)), len(str(ma)))  # determine the necessary width
+        res = ""
+        for r in self:
+            res += (("%%%ds " % w) * len(r) % tuple(r)) + "\n"
+        return res

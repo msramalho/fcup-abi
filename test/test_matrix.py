@@ -1,4 +1,6 @@
+import io
 import unittest
+import unittest.mock
 from bioseq import Matrix
 
 
@@ -55,6 +57,18 @@ class TestMatrix(unittest.TestCase):
         m = Matrix(10, 5, 3)
         self.assertFalse(m.square())
 
+    
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    def _test_str(self, m, mock_stdout):
+        print(m)
+        output = mock_stdout.getvalue()
+        self.assertEqual(len(output), 131)
+        self.assertIn("12", output)
+
+    
+    def test_str(self):
+        m = Matrix(10, 4, 12)
+        self._test_str(m)
 
 if __name__ == '__main__':
     unittest.main()
