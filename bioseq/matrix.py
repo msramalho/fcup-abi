@@ -13,6 +13,18 @@ class Matrix:
         """calculate the sum of the values in the matrix"""
         return sum(c for r in self for c in r)
 
+    def max(self):
+        """Maximum value in the matrix"""
+        return max(c for r in self for c in r)
+
+    def min(self):
+        """Minimum value in the matrix"""
+        return min(c for r in self for c in r)
+
+    def square(self):
+        """Test if matrix is squared"""
+        return len(self) == len(self[0])
+
     def add_val(self, val):
         """add a value to all cells in the matrix. Returns self"""
         self.apply(lambda x, _i, _j: x + val)
@@ -29,18 +41,6 @@ class Matrix:
             for j in range(len(self[i])):
                 self[i][j] = operation(self[i][j], i, j)
         return self
-
-    def max(self):
-        """Maximum value in the matrix"""
-        return max(c for r in self for c in r)
-
-    def min(self):
-        """Minimum value in the matrix"""
-        return min(c for r in self for c in r)
-
-    def square(self):
-        """Test if matrix is squared"""
-        return len(self) == len(self[0])
 
     def display(self, save_to=False):  # pragma: no cover
         """Display the matrix in a plot if matplotlib is installed. If save_to is used the plot is saved and not shown."""
