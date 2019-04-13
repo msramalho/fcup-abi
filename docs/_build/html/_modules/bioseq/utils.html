@@ -142,6 +142,8 @@
             
   <h1>Source code for bioseq.utils</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">bioseq</span>
+<span class="kn">from</span> <span class="nn">pkgutil</span> <span class="k">import</span> <span class="n">iter_modules</span>
+
 
 <div class="viewcode-block" id="get_dict_of_dna_to_aminoacids"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.get_dict_of_dna_to_aminoacids">[docs]</a><span class="k">def</span> <span class="nf">get_dict_of_dna_to_aminoacids</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Get a dictionary that maps RNA codons onto their respective proteins&quot;&quot;&quot;</span>
@@ -155,6 +157,27 @@
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fastas</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>  <span class="c1"># ignore the first empty</span>
             <span class="n">p</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">yield</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bioseq</span><span class="o">.</span><span class="n">proteinseq</span><span class="o">.</span><span class="n">ProteinSeq</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">:])))</span></div>
+
+
+<div class="viewcode-block" id="module_exists"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.module_exists">[docs]</a><span class="k">def</span> <span class="nf">module_exists</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test if a module exists&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">loader</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ispkg</span> <span class="ow">in</span> <span class="n">iter_modules</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="substitution_matrix"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.substitution_matrix">[docs]</a><span class="k">def</span> <span class="nf">substitution_matrix</span><span class="p">(</span><span class="n">alphabet</span><span class="p">,</span> <span class="n">match</span><span class="p">,</span> <span class="n">mismatch</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a substitution matrix from an alphabet, matcha and mismatch values&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">:</span> <span class="n">match</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="k">else</span> <span class="n">mismatch</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">alphabet</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">alphabet</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="read_substitution_matrix_file"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.read_substitution_matrix_file">[docs]</a><span class="k">def</span> <span class="nf">read_substitution_matrix_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;read substitution matrix from file &quot;&quot;&quot;</span>
+    <span class="n">sm</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">alphabet</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">alphabet</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())):</span>
+                <span class="n">sm</span><span class="p">[</span><span class="n">c</span> <span class="o">+</span> <span class="n">alphabet</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">sm</span></div>
 </pre></div>
 
            </div>

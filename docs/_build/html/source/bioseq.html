@@ -87,6 +87,7 @@
 <li><a class="reference internal" href="#module-bioseq.rnaseq">RNA Sequence module</a></li>
 <li><a class="reference internal" href="#module-bioseq.proteinseq">Protein Sequence module</a></li>
 <li><a class="reference internal" href="#module-bioseq.utils">utils module</a></li>
+<li><a class="reference internal" href="#module-bioseq.matrix">Matrix module</a></li>
 <li><a class="reference internal" href="#module-bioseq">Module contents</a></li>
 </ul>
 </li>
@@ -185,6 +186,28 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="bioseq.bioseq.BioSeq.compare_pairwise_global_align">
+<code class="descname">compare_pairwise_global_align</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.compare_pairwise_global_align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.compare_pairwise_global_align" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.compare_pairwise_local_align">
+<code class="descname">compare_pairwise_local_align</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.compare_pairwise_local_align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.compare_pairwise_local_align" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.display_dot_plot">
+<code class="descname">display_dot_plot</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.display_dot_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.display_dot_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the dot_plot in a plot if matplotlib is installed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.dot_plot">
+<code class="descname">dot_plot</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.dot_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.dot_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a dotplot between two sequences. Returns a Matrix</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="bioseq.bioseq.BioSeq.frequency">
 <code class="descname">frequency</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.frequency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the relative frequency of each token in the sequence</p>
@@ -197,9 +220,27 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="bioseq.bioseq.BioSeq.global_align_multiple_solutions">
+<code class="descname">global_align_multiple_solutions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.global_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.global_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Needleman–Wunsch</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.hamming_distance">
+<code class="descname">hamming_distance</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.hamming_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.hamming_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>implements a hamming distance calculator</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="bioseq.bioseq.BioSeq.load">
 <code class="descname">load</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load object from file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.local_align_multiple_solutions">
+<code class="descname">local_align_multiple_solutions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.local_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.local_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smith–Waterman</p>
 </dd></dl>
 
 <dl class="method">
@@ -207,6 +248,16 @@
 <code class="descname">pretty_print</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.pretty_print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.pretty_print" title="Permalink to this definition">¶</a></dt>
 <dd><p>Outputs a prettified and informative string onto the console, describing the current sequence</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.recover_global_align_multiple_solutions">
+<code class="descname">recover_global_align_multiple_solutions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.recover_global_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.recover_global_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.recover_local_align_multiple_solutions">
+<code class="descname">recover_local_align_multiple_solutions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.recover_local_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.recover_local_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="bioseq.bioseq.BioSeq.reverse">
@@ -382,9 +433,85 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bioseq.utils.module_exists">
+<code class="descclassname">bioseq.utils.</code><code class="descname">module_exists</code><span class="sig-paren">(</span><em>module_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#module_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.module_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a module exists</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="bioseq.utils.read_fasta">
 <code class="descclassname">bioseq.utils.</code><code class="descname">read_fasta</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#read_fasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.read_fasta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that reads a FASTA file into a list of its ProteinSeq entries. Returns list of tuples (comment, ProteinSeq)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioseq.utils.read_substitution_matrix_file">
+<code class="descclassname">bioseq.utils.</code><code class="descname">read_substitution_matrix_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#read_substitution_matrix_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.read_substitution_matrix_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>read substitution matrix from file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioseq.utils.substitution_matrix">
+<code class="descclassname">bioseq.utils.</code><code class="descname">substitution_matrix</code><span class="sig-paren">(</span><em>alphabet</em>, <em>match</em>, <em>mismatch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#substitution_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.substitution_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a substitution matrix from an alphabet, matcha and mismatch values</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioseq.matrix">
+<span id="matrix-module"></span><h2>Matrix module<a class="headerlink" href="#module-bioseq.matrix" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.matrix.Matrix">
+<em class="property">class </em><code class="descclassname">bioseq.matrix.</code><code class="descname">Matrix</code><span class="sig-paren">(</span><em>rows</em>, <em>cols</em>, <em>value=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Wrapper class to provide a numerical matrix interface with relevant and reusable functions</p>
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.add_val">
+<code class="descname">add_val</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.add_val"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.add_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a value to all cells in the matrix. Returns self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.apply">
+<code class="descname">apply</code><span class="sig-paren">(</span><em>operation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>general private method to apply an operation to each cell. The operation should receive (cell value, row index, col index)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.display">
+<code class="descname">display</code><span class="sig-paren">(</span><em>save_to=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the matrix in a plot if matplotlib is installed. If save_to is used the plot is saved and not shown.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.max">
+<code class="descname">max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum value in the matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.min">
+<code class="descname">min</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.min"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimum value in the matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.mul_val">
+<code class="descname">mul_val</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.mul_val"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.mul_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>multiply a value by all cells in the matrix. Returns self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.square">
+<code class="descname">square</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.square"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.square" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if matrix is squared</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.sum">
+<code class="descname">sum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.sum" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the sum of the values in the matrix</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

@@ -143,6 +143,7 @@
   <h1>Source code for bioseq.bioseq</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">.matrix</span> <span class="k">import</span> <span class="n">Matrix</span>
 
 
 <div class="viewcode-block" id="BioSeq"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq">[docs]</a><span class="k">class</span> <span class="nc">BioSeq</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -156,6 +157,45 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1">#: The current sequence</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seq_type</span> <span class="o">=</span> <span class="n">seq_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1">#: DNA, RNA, PROTEIN</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_assert_seq_type</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BioSeq.hamming_distance"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.hamming_distance">[docs]</a>    <span class="k">def</span> <span class="nf">hamming_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;implements a hamming distance calculator&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">),</span> <span class="s2">&quot;Hamming distance is only possible between same length sequences&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">seq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="BioSeq.dot_plot"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.dot_plot">[docs]</a>    <span class="k">def</span> <span class="nf">dot_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;create a dotplot between two sequences. Returns a Matrix&quot;&quot;&quot;</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">m</span></div>
+
+<div class="viewcode-block" id="BioSeq.display_dot_plot"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.display_dot_plot">[docs]</a>    <span class="k">def</span> <span class="nf">display_dot_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="sd">&quot;&quot;&quot;Display the dot_plot in a plot if matplotlib is installed&quot;&quot;&quot;</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">display</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BioSeq.global_align_multiple_solutions"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.global_align_multiple_solutions">[docs]</a>    <span class="k">def</span> <span class="nf">global_align_multiple_solutions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Needleman–Wunsch&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BioSeq.recover_global_align_multiple_solutions"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.recover_global_align_multiple_solutions">[docs]</a>    <span class="k">def</span> <span class="nf">recover_global_align_multiple_solutions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BioSeq.local_align_multiple_solutions"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.local_align_multiple_solutions">[docs]</a>    <span class="k">def</span> <span class="nf">local_align_multiple_solutions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Smith–Waterman&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BioSeq.recover_local_align_multiple_solutions"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.recover_local_align_multiple_solutions">[docs]</a>    <span class="k">def</span> <span class="nf">recover_local_align_multiple_solutions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BioSeq.compare_pairwise_global_align"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.compare_pairwise_global_align">[docs]</a>    <span class="k">def</span> <span class="nf">compare_pairwise_global_align</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BioSeq.compare_pairwise_local_align"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.compare_pairwise_local_align">[docs]</a>    <span class="k">def</span> <span class="nf">compare_pairwise_local_align</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BioSeq.frequency"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.bioseq.BioSeq.frequency">[docs]</a>    <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calculates the relative frequency of each token in the sequence&quot;&quot;&quot;</span>

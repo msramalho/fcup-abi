@@ -50,6 +50,16 @@ utils module
     :private-members:
 
 
+
+Matrix module
+-------------------------------
+.. automodule:: bioseq.matrix
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+
 Module contents
 ---------------
 
