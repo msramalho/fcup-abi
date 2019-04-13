@@ -1,4 +1,5 @@
 from bioseq import BioSeq
+from .utils import GAP
 
 
 class ProteinSeq(BioSeq):
