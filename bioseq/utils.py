@@ -39,6 +39,6 @@ def read_substitution_matrix_file(filename):
     return sm
 
 
-def score_pos(c1, c2, sm, g):
+def score_column(c1, c2, sm, g):
     """score of a position (column). receives substituion_matrix and gap"""
     return g if c1 == GAP or c2 == GAP else sm[c1+c2]
