@@ -72,15 +72,26 @@ class BioSeq(object):
         for i in range(1, len(self) + 1):  # for each row
             for j in range(1, len(seq) + 1):  # for each col
                 d = [s[i - 1][j - 1] + sm[self[i - 1] + seq[j - 1]], s[i - 1][j] + g, s[i][j - 1] + g]
-                s[i][j] = max(d) # set the score
-                t[i][j] = [k for k, v in enumerate(d) if v == s[i][j]] # set directions
-        print(s)
-        print(t)
+                s[i][j] = max(d)  # set the score
+                t[i][j] = [k for k, v in enumerate(d) if v == s[i][j]]  # set directions
         return s, t
 
-    def recover_global_align_multiple_solutions(self, seq, s, t):
+    def _recover_global_dfs(self, seq, t, i, j):
+        """helper function that uses DFS to build multiple results"""
+        if i == 0 and j == 0: return [("","")]
+        chains = []
+        res = ["", ""]
+        for step in t[i][j]:
+            if step == HORIZONTAL: j-=1; res[0] += GAP; res[1] += seq[j]
+            elif step == VERTICAL: i-=1; res[1] += GAP; res[0] += self[i]
+            else: i-=1; j-=1; res[0] += self[i]; res[1] += seq[j]
+            for a, b in self._recover_global_dfs(seq, t, i, j):
+                chains.append((res[0] + a, res[1] + b))
+        return chains
+
+    def recover_global_align_multiple_solutions(self, seq, t):
         """Given two sequences and their Score and Traceback global alignment functions, return all the solutions"""
-        pass
+        return [(a[::-1], b[::-1]) for a, b in self._recover_global_dfs(seq, t, len(self), len(seq))]
 
     def local_align_multiple_solutions(self):
         """Smith–Waterman"""

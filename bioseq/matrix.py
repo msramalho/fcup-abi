@@ -81,6 +81,5 @@ class Matrix:
         # determine the necessary width
         w = max(len(str(c)) for r in self for c in r)
         res = ""
-        for r in self:
-            res += (("%%%ds " % w) * len(r) % tuple(r)) + "\n"
+        for r in self: res += (("%%%ds " % w) * len(r) % tuple(r)) + "\n"
         return res
