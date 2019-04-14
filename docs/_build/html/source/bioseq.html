@@ -186,14 +186,22 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="bioseq.bioseq.BioSeq._traceback_step">
+<code class="descname">_traceback_step</code><span class="sig-paren">(</span><em>seq</em>, <em>step</em>, <em>l</em>, <em>r</em>, <em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq._traceback_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq._traceback_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a traceback step return the previous position</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="bioseq.bioseq.BioSeq.compare_pairwise_global_align">
-<code class="descname">compare_pairwise_global_align</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.compare_pairwise_global_align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.compare_pairwise_global_align" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">compare_pairwise_global_align</code><span class="sig-paren">(</span><em>sm</em>, <em>g</em>, <em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.compare_pairwise_global_align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.compare_pairwise_global_align" title="Permalink to this definition">¶</a></dt>
+<dd><p>For every combination return Score and Traceback matrices, global alignment</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="bioseq.bioseq.BioSeq.compare_pairwise_local_align">
-<code class="descname">compare_pairwise_local_align</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.compare_pairwise_local_align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.compare_pairwise_local_align" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">compare_pairwise_local_align</code><span class="sig-paren">(</span><em>sm</em>, <em>g</em>, <em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.compare_pairwise_local_align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.compare_pairwise_local_align" title="Permalink to this definition">¶</a></dt>
+<dd><p>For every combination return Score and Traceback matrices, local alignment</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="bioseq.bioseq.BioSeq.display_dot_plot">
@@ -221,7 +229,7 @@
 
 <dl class="method">
 <dt id="bioseq.bioseq.BioSeq.global_align_multiple_solutions">
-<code class="descname">global_align_multiple_solutions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.global_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.global_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
+<code class="descname">global_align_multiple_solutions</code><span class="sig-paren">(</span><em>seq</em>, <em>sm</em>, <em>g</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.global_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.global_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Needleman–Wunsch</p>
 </dd></dl>
 
@@ -239,7 +247,7 @@
 
 <dl class="method">
 <dt id="bioseq.bioseq.BioSeq.local_align_multiple_solutions">
-<code class="descname">local_align_multiple_solutions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.local_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.local_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
+<code class="descname">local_align_multiple_solutions</code><span class="sig-paren">(</span><em>seq</em>, <em>sm</em>, <em>g</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.local_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.local_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Smith–Waterman</p>
 </dd></dl>
 
@@ -251,13 +259,15 @@
 
 <dl class="method">
 <dt id="bioseq.bioseq.BioSeq.recover_global_align_multiple_solutions">
-<code class="descname">recover_global_align_multiple_solutions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.recover_global_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.recover_global_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">recover_global_align_multiple_solutions</code><span class="sig-paren">(</span><em>seq</em>, <em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.recover_global_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.recover_global_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two sequences and their Score and Traceback global alignment functions, return all the solutions</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="bioseq.bioseq.BioSeq.recover_local_align_multiple_solutions">
-<code class="descname">recover_local_align_multiple_solutions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.recover_local_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.recover_local_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">recover_local_align_multiple_solutions</code><span class="sig-paren">(</span><em>seq</em>, <em>t</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.recover_local_align_multiple_solutions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.recover_local_align_multiple_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two sequences and their Score and Traceback local alignment functions, return all the solutions</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="bioseq.bioseq.BioSeq.reverse">
@@ -275,6 +285,18 @@
 <dt id="bioseq.bioseq.BioSeq.save">
 <code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save an object to a file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.score_affine_gap">
+<code class="descname">score_affine_gap</code><span class="sig-paren">(</span><em>seq</em>, <em>sm</em>, <em>g</em>, <em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.score_affine_gap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.score_affine_gap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the affine gap score, using the gap penalty and the keep gap penalty</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.score_seq">
+<code class="descname">score_seq</code><span class="sig-paren">(</span><em>seq</em>, <em>sm</em>, <em>g</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.score_seq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.score_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the score of aligning two sequences, given a gap and substitution matrix</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -451,6 +473,12 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bioseq.utils.score_pos">
+<code class="descclassname">bioseq.utils.</code><code class="descname">score_pos</code><span class="sig-paren">(</span><em>c1</em>, <em>c2</em>, <em>sm</em>, <em>g</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#score_pos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.score_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>score of a position (column). receives substituion_matrix and gap</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="bioseq.utils.substitution_matrix">
 <code class="descclassname">bioseq.utils.</code><code class="descname">substitution_matrix</code><span class="sig-paren">(</span><em>alphabet</em>, <em>match</em>, <em>mismatch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#substitution_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.substitution_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a substitution matrix from an alphabet, matcha and mismatch values</p>
@@ -461,7 +489,7 @@
 <span id="matrix-module"></span><h2>Matrix module<a class="headerlink" href="#module-bioseq.matrix" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bioseq.matrix.Matrix">
-<em class="property">class </em><code class="descclassname">bioseq.matrix.</code><code class="descname">Matrix</code><span class="sig-paren">(</span><em>rows</em>, <em>cols</em>, <em>value=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bioseq.matrix.</code><code class="descname">Matrix</code><span class="sig-paren">(</span><em>rows</em>, <em>cols=None</em>, <em>value=0</em>, <em>row_names=None</em>, <em>col_names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Wrapper class to provide a numerical matrix interface with relevant and reusable functions</p>
 <dl class="method">
@@ -483,6 +511,12 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="bioseq.matrix.Matrix.last">
+<code class="descname">last</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.last"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.last" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return last cell of matrix</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="bioseq.matrix.Matrix.max">
 <code class="descname">max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum value in the matrix</p>
@@ -498,6 +532,12 @@
 <dt id="bioseq.matrix.Matrix.mul_val">
 <code class="descname">mul_val</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.mul_val"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.mul_val" title="Permalink to this definition">¶</a></dt>
 <dd><p>multiply a value by all cells in the matrix. Returns self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.set_col">
+<code class="descname">set_col</code><span class="sig-paren">(</span><em>col</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.set_col"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.set_col" title="Permalink to this definition">¶</a></dt>
+<dd><p>set value of col</p>
 </dd></dl>
 
 <dl class="method">

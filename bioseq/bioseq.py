@@ -60,8 +60,8 @@ class BioSeq(object):
     def global_align_multiple_solutions(self, seq, sm, g):
         """Needleman–Wunsch"""
         # create the score and traceback matrices
-        s = Matrix(len(self) + 1, len(seq) + 1)
-        t = Matrix(len(self) + 1, len(seq) + 1)
+        s = Matrix(len(self) + 1, len(seq) + 1, row_names=[" "]+list(self), col_names=[""] + list(seq))
+        t = Matrix(len(self) + 1, len(seq) + 1, row_names=[" "]+list(self), col_names=[""] + list(seq))
         # set the row and col to gaps
         s[0] = [i * g for i in range(len(seq) + 1)]
         s.set_col(0, [i * g for i in range(len(self) + 1)])
@@ -135,7 +135,7 @@ class BioSeq(object):
         for i,s1 in enumerate(seqs):
             for j,s2 in enumerate(seqs):
                 if j > i: continue
-                m[j][i] = s2.local_align_multiple_solutions(s1, sm, g)[0].last()
+                m[j][i] = s2.local_align_multiple_solutions(s1, sm, g)[0].max()[0][0]
         # only triangular matrix is calculated, the mirroring is much faster
         m.apply(lambda v, i, j: m[j][i] if j < i else v)
         return m

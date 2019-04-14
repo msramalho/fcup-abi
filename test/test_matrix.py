@@ -29,7 +29,6 @@ class TestMatrix(unittest.TestCase):
         self.assertRaises(Exception, Matrix, -1, 10)
         self.assertRaises(Exception, Matrix, 10, -1)
         self.assertRaises(Exception, Matrix, 0, 5)
-        self.assertRaises(Exception, Matrix, 5, 0)
         self.assertRaises(Exception, Matrix, 0, 0)
         self.assertRaises(Exception, Matrix, -10, -10)
 
@@ -64,17 +63,28 @@ class TestMatrix(unittest.TestCase):
         self.assertTrue(m.square())
         m = Matrix(10, 5, 3)
         self.assertFalse(m.square())
+        m = Matrix(10)
+        self.assertTrue(m.square())
+
+    def test_sum(self):
+        m = Matrix(10, 10, 3)
+        self.assertEqual(3, m.last())
+        m[9][9] = 15
+        self.assertEqual(15, m.last())
 
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
-    def _test_str(self, m, mock_stdout):
+    def _test_str(self, m,l, mock_stdout):
         print(m)
         output = mock_stdout.getvalue()
-        self.assertEqual(len(output), 131)
+        self.assertEqual(len(output), l)
         self.assertIn("12", output)
 
     def test_str(self):
         m = Matrix(10, 4, 12)
-        self._test_str(m)
+        self._test_str(m, 131)
+        m.rows = ["-"]*10
+        m.cols = ["-"]*4
+        self._test_str(m, 166)
 
     def test_display(self):
         filename = "temp_matrix.png"

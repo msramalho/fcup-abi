@@ -99,7 +99,6 @@ class Matrix:
         w = "%%%ds " % wl
         wr = "%%%ds:" % wrl if use_r else "%0s"
         wc = "%%%ds " % wcl
-        print(wl, wrl, wcl)
         res = " "*(wrl+1) if use_r else ""
         if use_r: res += w * len(self.cols) % tuple(map(lambda x: x[:wl], self.cols)) + "\n"
         for i, r in enumerate(self):

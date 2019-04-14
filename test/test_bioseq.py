@@ -138,6 +138,8 @@ class TestBioSeq(unittest.TestCase):
         self.assertListEqual([0, 0, 6, 11, 19, 17], s[-1])
         recover = list(s1.recover_local_align_multiple_solutions(s2, t, s))
         self.assertListEqual([('HSW', 'HGW'), ('HSWG', 'HGWA')], recover)
+        self.assertEqual(len(BioSeq.compare_pairwise_global_align([s1,s2], sm, -8)), 2)
+        self.assertEqual(len(BioSeq.compare_pairwise_local_align([s1,s2], sm, -8)), 2)
 
 
 
