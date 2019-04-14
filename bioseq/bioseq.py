@@ -1,6 +1,6 @@
 import re
 from operator import itemgetter
-from collections import Counter
+from collections import Counter, deque
 from .matrix import Matrix
 from .utils import *
 
@@ -76,49 +76,62 @@ class BioSeq(object):
                 t[i][j] = [k for k, v in enumerate(d) if v == s[i][j]]  # set directions
         return s, t
 
-    def _recover_global_dfs(self, seq, t, i, j):
-        """helper function that uses DFS to build multiple results"""
-        if i == 0 and j == 0: return [("", "")]
-        chains = []
-        res = ["", ""]
-        for step in t[i][j]:
-            if step == HORIZONTAL: j -= 1; res[0] += GAP; res[1] += seq[j]
-            elif step == VERTICAL: i -= 1; res[1] += GAP; res[0] += self[i]
-            else: i -= 1; j -= 1; res[0] += self[i]; res[1] += seq[j]
-            for a, b in self._recover_global_dfs(seq, t, i, j):
-                chains.append((res[0] + a, res[1] + b))
-        return chains
+    # def _recover_global_dfs(self, seq, t, i, j):
+    #     """helper function that uses DFS to build multiple results"""
+    #     if i == 0 and j == 0: return [("", "")]
+    #     chains = []
+    #     res = ["", ""]
+    #     for step in t[i][j]:
+    #         if step == HORIZONTAL: j -= 1; res[0] += GAP; res[1] += seq[j]
+    #         elif step == VERTICAL: i -= 1; res[1] += GAP; res[0] += self[i]
+    #         else: i -= 1; j -= 1; res[0] += self[i]; res[1] += seq[j]
+    #         for a, b in self._recover_global_dfs(seq, t, i, j):
+    #             chains.append((res[0] + a, res[1] + b))
+    #     return chains
+
+    def _traceback_step(self, seq, step, l, r, i, j):
+        """Given a traceback matrix position return the previous position"""
+        if step == HORIZONTAL: j -= 1; l += GAP; r += seq[j]
+        elif step == VERTICAL: i -= 1; r += GAP; l += self[i]
+        else: i -= 1; j -= 1; l += self[i]; r += seq[j]
+        return (l, r, i, j)
 
     def recover_global_align_multiple_solutions(self, seq, t):
         """Given two sequences and their Score and Traceback global alignment functions, return all the solutions"""
-        return [(a[::-1], b[::-1]) for a, b in self._recover_global_dfs(seq, t, len(self), len(seq))]
+        # return [(a[::-1], b[::-1]) for a, b in self._recover_global_dfs(seq, t, len(self), len(seq))]
+        print(self, seq)
+        q = deque([("", "", len(self), len(seq))])  # queue
+        while len(q):
+            l, r, i, j = q.popleft()
+            if i == 0 and j == 0: yield (l[::-1], r[::-1]); continue
+            for s in t[i][j]: q.append(self._traceback_step(seq, s, l, r, i, j))
 
     def local_align_multiple_solutions(self, seq, sm, g):
         """Smith–Waterman"""
         # create the score and traceback matrices
-        s = Matrix(len(self) + 1, len(seq) + 1)
-        t = Matrix(len(self) + 1, len(seq) + 1, [TERMINATION])
+        s=Matrix(len(self) + 1, len(seq) + 1)
+        t=Matrix(len(self) + 1, len(seq) + 1, [TERMINATION])
         # set the row and col to default directions
-        t[0] = [[TERMINATION]] * (len(seq) + 1)
+        t[0]=[[TERMINATION]] * (len(seq) + 1)
         t.set_col(0, [[TERMINATION]] * (len(self) + 1))
         # fill score matrix
         for i in range(1, len(self) + 1):  # for each row
             for j in range(1, len(seq) + 1):  # for each col
-                d = [s[i - 1][j - 1] + sm[self[i - 1] + seq[j - 1]], s[i - 1][j] + g, s[i][j - 1] + g, 0]
-                s[i][j] = max(d)  # set the score
-                t[i][j] = [k for k, v in enumerate(d) if v == s[i][j]] if s[i][j] != 0 else [TERMINATION]
+                d=[s[i - 1][j - 1] + sm[self[i - 1] + seq[j - 1]], s[i - 1][j] + g, s[i][j - 1] + g, 0]
+                s[i][j]=max(d)  # set the score
+                t[i][j]=[k for k, v in enumerate(d) if v == s[i][j]] if s[i][j] != 0 else [TERMINATION]
         return s, t
 
     def _recover_local_dfs(self, seq, t, i, j):
         """helper function that uses DFS to build multiple results"""
-        print(i, j, self[i-1], seq[j-1])
+        print(i, j, self[i - 1], seq[j - 1])
         if i == 0 and j == 0: return [("", "")]
-        chains = []
-        res = ["", ""]
+        chains=[]
+        res=["", ""]
         for step in t[i][j]:
-            if step == HORIZONTAL: j -= 1; res[0] += GAP; res[1] += seq[j-1]
-            elif step == VERTICAL: i -= 1; res[1] += GAP; res[0] += self[i-1]
-            elif step == DIAGONAL: i -= 1; j -= 1; res[0] += self[i-1]; res[1] += seq[j-1]
+            if step == HORIZONTAL: j -= 1; res[0] += GAP; res[1] += seq[j - 1]
+            elif step == VERTICAL: i -= 1; res[1] += GAP; res[0] += self[i - 1]
+            elif step == DIAGONAL: i -= 1; j -= 1; res[0] += self[i - 1]; res[1] += seq[j - 1]
             else: return chains
             for a, b in self._recover_local_dfs(seq, t, i, j):
                 chains.append((res[0] + a, res[1] + b))
@@ -126,7 +139,7 @@ class BioSeq(object):
 
     def recover_local_align_multiple_solutions(self, seq, s, t):
         """Given two sequences and their Score and Traceback local alignment functions, return all the solutions"""
-        res = []
+        res=[]
         for m, i, j in s.max():
             print(i, j, m)
             res += [(a[::-1], b[::-1]) for a, b in self._recover_local_dfs(seq, t, i, j)]
@@ -136,13 +149,13 @@ class BioSeq(object):
         """For every combination return Score and Traceback matrices, global alignment"""
         for s1 in seqs:
             for s2 in seqs:
-                if s1!=s2: yield s1.global_align_multiple_solutions(s2, sm, g)[0].last()
+                if s1 != s2: yield s1.global_align_multiple_solutions(s2, sm, g)[0].last()
 
     def compare_pairwise_local_align(seqs, sm, g):
         """For every combination return Score and Traceback matrices, local alignment"""
         for s1 in seqs:
             for s2 in seqs:
-                if s1!=s2: yield s1.local_align_multiple_solutions(s2, sm, g)
+                if s1 != s2: yield s1.local_align_multiple_solutions(s2, sm, g)
 
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""
@@ -169,13 +182,13 @@ class BioSeq(object):
     def load(self, filename):
         """Load object from file"""
         with open(filename) as fin:
-            self.seq_type = fin.readline().strip()
-            self.sequence = fin.readline().strip()
+            self.seq_type=fin.readline().strip()
+            self.sequence=fin.readline().strip()
 
     def _assert_valid_sequence_regex(self):
         """assert that all the tokens in the sequence are valid for that sequence type using a regex operator"""
-        tokens = "".join(type(self).valid_tokens)
-        pattern = "^[%s]*$" % (tokens + tokens.lower())
+        tokens="".join(type(self).valid_tokens)
+        pattern="^[%s]*$" % (tokens + tokens.lower())
         assert bool(re.search(pattern, self.sequence)), "%s is not a valid sequence(%s)" % (self.sequence, type(self).valid_tokens)
 
     def _assert_valid_sequence(self):
