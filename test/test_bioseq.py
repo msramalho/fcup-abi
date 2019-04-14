@@ -119,6 +119,7 @@ class TestBioSeq(unittest.TestCase):
         self.assertEqual(33, s1.score_affine_gap(s2, sm, -8, -2))
 
     def test_global_align(self):
+        # example from page 39 from slides
         s1 = BioSeq("PHSWG", "PROTEIN")
         s2 = BioSeq("HGWAG", "PROTEIN")
         sm = read_substitution_matrix_file("test/blosum62.mat")
@@ -126,6 +127,18 @@ class TestBioSeq(unittest.TestCase):
         self.assertListEqual([-40, -24, -10, 3, 11, 9], s[-1])
         recover = list(s1.recover_global_align_multiple_solutions(s2, t))
         self.assertListEqual([('PHSW_G', '_HGWAG')], recover)
+
+
+    def test_global_align2(self):
+        # example from page 46 from slides
+        s1 = BioSeq("PHSWG", "PROTEIN")
+        s2 = BioSeq("HGWAG", "PROTEIN")
+        sm = read_substitution_matrix_file("test/blosum62.mat")
+        s, t = s1.local_align_multiple_solutions(s2, sm, -8)
+        self.assertListEqual([0, 0, 6, 11, 19, 17], s[-1])
+        recover = list(s1.recover_local_align_multiple_solutions(s2, t, s))
+        self.assertListEqual([('HSW', 'HGW'), ('HSWG', 'HGWA')], recover)
+
 
 
 if __name__ == '__main__':

@@ -76,30 +76,16 @@ class BioSeq(object):
                 t[i][j] = [k for k, v in enumerate(d) if v == s[i][j]]  # set directions
         return s, t
 
-    # def _recover_global_dfs(self, seq, t, i, j):
-    #     """helper function that uses DFS to build multiple results"""
-    #     if i == 0 and j == 0: return [("", "")]
-    #     chains = []
-    #     res = ["", ""]
-    #     for step in t[i][j]:
-    #         if step == HORIZONTAL: j -= 1; res[0] += GAP; res[1] += seq[j]
-    #         elif step == VERTICAL: i -= 1; res[1] += GAP; res[0] += self[i]
-    #         else: i -= 1; j -= 1; res[0] += self[i]; res[1] += seq[j]
-    #         for a, b in self._recover_global_dfs(seq, t, i, j):
-    #             chains.append((res[0] + a, res[1] + b))
-    #     return chains
-
     def _traceback_step(self, seq, step, l, r, i, j):
-        """Given a traceback matrix position return the previous position"""
+        """Given a traceback step return the previous position"""
         if step == HORIZONTAL: j -= 1; l += GAP    ; r += seq[j]
         elif step == VERTICAL: i -= 1; l += self[i]; r += GAP
-        else: i -= 1; j -= 1; l += self[i]; r += seq[j]
+        elif step == DIAGONAL: i -= 1; j -= 1; l += self[i]; r += seq[j]
+        else: return (l, r, 0, 0)
         return (l, r, i, j)
 
     def recover_global_align_multiple_solutions(self, seq, t):
         """Given two sequences and their Score and Traceback global alignment functions, return all the solutions"""
-        # return [(a[::-1], b[::-1]) for a, b in self._recover_global_dfs(seq, t, len(self), len(seq))]
-        print(self, seq)
         q = deque([("", "", len(self), len(seq))])  # queue
         while len(q):
             l, r, i, j = q.popleft()
@@ -122,27 +108,16 @@ class BioSeq(object):
                 t[i][j]=[k for k, v in enumerate(d) if v == s[i][j]] if s[i][j] != 0 else [TERMINATION]
         return s, t
 
-    def _recover_local_dfs(self, seq, t, i, j):
-        """helper function that uses DFS to build multiple results"""
-        if i == 0 and j == 0: return [("", "")]
-        chains=[]
-        res=["", ""]
-        for step in t[i][j]:
-            if step == HORIZONTAL: j -= 1; res[0] += GAP; res[1] += seq[j - 1]
-            elif step == VERTICAL: i -= 1; res[1] += GAP; res[0] += self[i - 1]
-            elif step == DIAGONAL: i -= 1; j -= 1; res[0] += self[i - 1]; res[1] += seq[j - 1]
-            else: return chains
-            for a, b in self._recover_local_dfs(seq, t, i, j):
-                chains.append((res[0] + a, res[1] + b))
-        return chains
-
-    def recover_local_align_multiple_solutions(self, seq, s, t):
+    def recover_local_align_multiple_solutions(self, seq, t, s):
         """Given two sequences and their Score and Traceback local alignment functions, return all the solutions"""
         res=[]
-        for m, i, j in s.max():
-            print(i, j, m)
-            res += [(a[::-1], b[::-1]) for a, b in self._recover_local_dfs(seq, t, i, j)]
-        return res
+        q = deque()
+        for m, i, j in s.max(): q.append(("", "", i, j))
+        while len(q):
+            l, r, i, j = q.popleft()
+            print(i, j, l, r)
+            if i == 0 and j == 0: yield (l[::-1], r[::-1]); continue
+            for s in t[i][j]: q.append(self._traceback_step(seq, s, l, r, i, j))
 
     def compare_pairwise_global_align(seqs, sm, g):
         """For every combination return Score and Traceback matrices, global alignment"""
