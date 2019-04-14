@@ -16,7 +16,8 @@ class Matrix:
     def max(self):
         """Maximum value in the matrix"""
         # return max(c for r in self for c in r)
-        return max((c,i,j) for i,r in enumerate(self) for j,c in enumerate(r))
+        ma = max(c for r in self for c in r)
+        return [(c,i,j) for i,r in enumerate(self) for j,c in enumerate(r) if c == ma]
 
     def min(self):
         """Minimum value in the matrix"""
@@ -25,6 +26,10 @@ class Matrix:
     def square(self):
         """Test if matrix is squared"""
         return len(self) == len(self[0])
+
+    def last(self):
+        """Return last cell of matrix"""
+        return self[-1][-1]
 
     def add_val(self, val):
         """add a value to all cells in the matrix. Returns self"""
