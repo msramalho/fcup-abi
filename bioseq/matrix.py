@@ -4,10 +4,15 @@ from .utils import module_exists
 class Matrix:
     """Wrapper class to provide a numerical matrix interface with relevant and reusable functions"""
 
-    def __init__(self, rows, cols, value=0):
+    def __init__(self, rows, cols=None, value=0, row_names=None, col_names=None):
         assert rows > 0, "The number of rows must be positive"
+        if not cols: cols = rows  # square matrix
         assert cols > 0, "The number of cols must be positive"
         self.matrix = [[value for _ in range(cols)] for _ in range(rows)]
+        assert not row_names or len(row_names) == rows, "The row names do no match the number of rows"
+        assert not col_names or len(col_names) == cols, "The col names do no match the number of cols"
+        self.rows = row_names or [""] * rows
+        self.cols = col_names or [""] * cols
 
     def sum(self):
         """calculate the sum of the values in the matrix"""
@@ -17,7 +22,7 @@ class Matrix:
         """Maximum value in the matrix"""
         # return max(c for r in self for c in r)
         ma = max(c for r in self for c in r)
-        return [(c,i,j) for i,r in enumerate(self) for j,c in enumerate(r) if c == ma]
+        return [(c, i, j) for i, r in enumerate(self) for j, c in enumerate(r) if c == ma]
 
     def min(self):
         """Minimum value in the matrix"""
@@ -85,7 +90,12 @@ class Matrix:
     def __str__(self):
         """pretty print matrix"""
         # determine the necessary width
-        w = max(len(str(c)) for r in self for c in r)
-        res = ""
-        for r in self: res += (("%%%ds " % w) * len(r) % tuple(r)) + "\n"
+        use_r = bool(len(self.rows[0]))
+        w = "%%%ds " % max(len(str(c)) for r in self for c in r)
+        wr = "%%%ds:" % min(max(map(len, self.rows)), 8) if use_r else "%0s"
+        wc = "%%%ds" % min(max(map(len, self.cols)), 8)
+        res = wc % " " + " "
+        if use_r: res += w * len(self.cols) % tuple(self.cols) + "\n"
+        for i, r in enumerate(self):
+            res += wr % self.rows[i] + (w * len(r) % tuple(r)) + "\n"
         return res
