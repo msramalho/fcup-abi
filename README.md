@@ -20,7 +20,7 @@ Additionally, there are tests that guarantee 100% coverage (see [html version of
 * Run with [coverage](https://coverage.readthedocs.io/): `coverage run -m unittest discover`
 * Generate (HTML) report: `coverage report` | `coverage html`
 
-![](https://i.imgur.com/uI7VdLS.png)
+![](https://i.imgur.com/XMePdjI.png)
 
 ## Docs
 To generate the docs again, `cd ./docs` and:
