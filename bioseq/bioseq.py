@@ -60,8 +60,8 @@ class BioSeq(object):
     def global_align_multiple_solutions(self, seq, sm, g):
         """Needleman–Wunsch"""
         # create the score and traceback matrices
-        s = Matrix(len(self) + 1, len(seq) + 1, row_names=[" "]+list(self), col_names=[""] + list(seq))
-        t = Matrix(len(self) + 1, len(seq) + 1, row_names=[" "]+list(self), col_names=[""] + list(seq))
+        s = Matrix(len(self) + 1, len(seq) + 1, row_names=[" "] + list(self), col_names=[""] + list(seq))
+        t = Matrix(len(self) + 1, len(seq) + 1, row_names=[" "] + list(self), col_names=[""] + list(seq))
         # set the row and col to gaps
         s[0] = [i * g for i in range(len(seq) + 1)]
         s.set_col(0, [i * g for i in range(len(self) + 1)])
@@ -78,7 +78,7 @@ class BioSeq(object):
 
     def _traceback_step(self, seq, step, l, r, i, j):
         """Given a traceback step return the previous position"""
-        if step == HORIZONTAL: j -= 1; l += GAP    ; r += seq[j]
+        if step == HORIZONTAL: j -= 1; l += GAP; r += seq[j]
         elif step == VERTICAL: i -= 1; l += self[i]; r += GAP
         elif step == DIAGONAL: i -= 1; j -= 1; l += self[i]; r += seq[j]
         else: return (l, r, 0, 0)
@@ -95,22 +95,22 @@ class BioSeq(object):
     def local_align_multiple_solutions(self, seq, sm, g):
         """Smith–Waterman"""
         # create the score and traceback matrices
-        s=Matrix(len(self) + 1, len(seq) + 1, row_names=[" "]+list(self), col_names=[""] + list(seq))
-        t=Matrix(len(self) + 1, len(seq) + 1, [TERMINATION], row_names=[" "]+list(self), col_names=[""] + list(seq))
+        s = Matrix(len(self) + 1, len(seq) + 1, row_names=[" "] + list(self), col_names=[""] + list(seq))
+        t = Matrix(len(self) + 1, len(seq) + 1, [TERMINATION], row_names=[" "] + list(self), col_names=[""] + list(seq))
         # set the row and col to default directions
-        t[0]=[[TERMINATION]] * (len(seq) + 1)
+        t[0] = [[TERMINATION]] * (len(seq) + 1)
         t.set_col(0, [[TERMINATION]] * (len(self) + 1))
         # fill score matrix
         for i in range(1, len(self) + 1):  # for each row
             for j in range(1, len(seq) + 1):  # for each col
-                d=[s[i - 1][j - 1] + sm[self[i - 1] + seq[j - 1]], s[i - 1][j] + g, s[i][j - 1] + g, 0]
-                s[i][j]=max(d)  # set the score
-                t[i][j]=[k for k, v in enumerate(d) if v == s[i][j]] if s[i][j] != 0 else [TERMINATION]
+                d = [s[i - 1][j - 1] + sm[self[i - 1] + seq[j - 1]], s[i - 1][j] + g, s[i][j - 1] + g, 0]
+                s[i][j] = max(d)  # set the score
+                t[i][j] = [k for k, v in enumerate(d) if v == s[i][j]] if s[i][j] != 0 else [TERMINATION]
         return s, t
 
     def recover_local_align_multiple_solutions(self, seq, t, s):
         """Given two sequences and their Score and Traceback local alignment functions, return all the solutions"""
-        res=[]
+        res = []
         q = deque()
         for m, i, j in s.max(): q.append(("", "", i, j))
         while len(q):
@@ -121,8 +121,8 @@ class BioSeq(object):
     def compare_pairwise_global_align(seqs, sm, g, names=None):
         """For every combination return Score and Traceback matrices, global alignment"""
         m = Matrix(len(seqs), row_names=names, col_names=names)
-        for i,s1 in enumerate(seqs):
-            for j,s2 in enumerate(seqs):
+        for i, s1 in enumerate(seqs):
+            for j, s2 in enumerate(seqs):
                 if j > i: continue
                 m[j][i] = s2.global_align_multiple_solutions(s1, sm, g)[0].last()
         # only triangular matrix is calculated, the mirroring is much faster
@@ -132,13 +132,14 @@ class BioSeq(object):
     def compare_pairwise_local_align(seqs, sm, g, names=None):
         """For every combination return Score and Traceback matrices, local alignment"""
         m = Matrix(len(seqs), row_names=names, col_names=names)
-        for i,s1 in enumerate(seqs):
-            for j,s2 in enumerate(seqs):
+        for i, s1 in enumerate(seqs):
+            for j, s2 in enumerate(seqs):
                 if j > i: continue
                 m[j][i] = s2.local_align_multiple_solutions(s1, sm, g)[0].max()[0][0]
         # only triangular matrix is calculated, the mirroring is much faster
         m.apply(lambda v, i, j: m[j][i] if j < i else v)
         return m
+
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""
         return {k: v / len(self) for k, v in Counter(self.sequence).items()}
@@ -164,13 +165,13 @@ class BioSeq(object):
     def load(self, filename):
         """Load object from file"""
         with open(filename) as fin:
-            self.seq_type=fin.readline().strip()
-            self.sequence=fin.readline().strip()
+            self.seq_type = fin.readline().strip()
+            self.sequence = fin.readline().strip()
 
     def _assert_valid_sequence_regex(self):
         """assert that all the tokens in the sequence are valid for that sequence type using a regex operator"""
-        tokens="".join(type(self).valid_tokens)
-        pattern="^[%s]*$" % (tokens + tokens.lower())
+        tokens = "".join(type(self).valid_tokens)
+        pattern = "^[%s]*$" % (tokens + tokens.lower())
         assert bool(re.search(pattern, self.sequence)), "%s is not a valid sequence(%s)" % (self.sequence, type(self).valid_tokens)
 
     def _assert_valid_sequence(self):
