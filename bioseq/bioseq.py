@@ -96,7 +96,7 @@ class BioSeq(object):
         """Smith–Waterman"""
         # create the score and traceback matrices
         s=Matrix(len(self) + 1, len(seq) + 1, row_names=[" "]+list(self), col_names=[""] + list(seq))
-        t=Matrix(len(self) + 1, len(seq) + 1, [TERMINATION])
+        t=Matrix(len(self) + 1, len(seq) + 1, [TERMINATION], row_names=[" "]+list(self), col_names=[""] + list(seq))
         # set the row and col to default directions
         t[0]=[[TERMINATION]] * (len(seq) + 1)
         t.set_col(0, [[TERMINATION]] * (len(self) + 1))
@@ -118,9 +118,9 @@ class BioSeq(object):
             if i == 0 and j == 0: yield (l[::-1], r[::-1]); continue
             for s in t[i][j]: q.append(self._traceback_step(seq, s, l, r, i, j))
 
-    def compare_pairwise_global_align(seqs, sm, g):
+    def compare_pairwise_global_align(seqs, sm, g, names=None):
         """For every combination return Score and Traceback matrices, global alignment"""
-        m = Matrix(len(seqs))
+        m = Matrix(len(seqs), row_names=names, col_names=names)
         for i,s1 in enumerate(seqs):
             for j,s2 in enumerate(seqs):
                 if j > i: continue
@@ -129,12 +129,16 @@ class BioSeq(object):
         m.apply(lambda v, i, j: m[j][i] if j < i else v)
         return m
 
-    def compare_pairwise_local_align(seqs, sm, g):
+    def compare_pairwise_local_align(seqs, sm, g, names=None):
         """For every combination return Score and Traceback matrices, local alignment"""
-        for s1 in seqs:
-            for s2 in seqs:
-                if s1 != s2: yield s1.local_align_multiple_solutions(s2, sm, g)
-
+        m = Matrix(len(seqs), row_names=names, col_names=names)
+        for i,s1 in enumerate(seqs):
+            for j,s2 in enumerate(seqs):
+                if j > i: continue
+                m[j][i] = s2.local_align_multiple_solutions(s1, sm, g)[0].last()
+        # only triangular matrix is calculated, the mirroring is much faster
+        m.apply(lambda v, i, j: m[j][i] if j < i else v)
+        return m
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""
         return {k: v / len(self) for k, v in Counter(self.sequence).items()}

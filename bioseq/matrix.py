@@ -91,11 +91,17 @@ class Matrix:
         """pretty print matrix"""
         # determine the necessary width
         use_r = bool(len(self.rows[0]))
-        w = "%%%ds " % max(len(str(c)) for r in self for c in r)
-        wr = "%%%ds:" % min(max(map(len, self.rows)), 8) if use_r else "%0s"
-        wc = "%%%ds" % min(max(map(len, self.cols)), 8)
-        res = wc % " " + " "
-        if use_r: res += w * len(self.cols) % tuple(self.cols) + "\n"
+        wl = max(len(str(c)) for r in self for c in r)
+        wrl = min(max(map(len, self.rows)), 8)
+        wcl = min(max(map(len, self.cols)), 8)
+        wl = max(wl, wcl)
+        wcl = wl + 1
+        w = "%%%ds " % wl
+        wr = "%%%ds:" % wrl if use_r else "%0s"
+        wc = "%%%ds " % wcl
+        print(wl, wrl, wcl)
+        res = " "*(wrl+1) if use_r else ""
+        if use_r: res += w * len(self.cols) % tuple(map(lambda x: x[:wl], self.cols)) + "\n"
         for i, r in enumerate(self):
-            res += wr % self.rows[i] + (w * len(r) % tuple(r)) + "\n"
+            res += wr % self.rows[i][:wl] + (w * len(r) % tuple(r)) + "\n"
         return res
