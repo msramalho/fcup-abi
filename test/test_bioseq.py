@@ -124,7 +124,9 @@ class TestBioSeq(unittest.TestCase):
         sm = read_substitution_matrix_file("test/blosum62.mat")
         s, t = s1.global_align_multiple_solutions(s2, sm, -8)
         self.assertListEqual([-40, -24, -10, 3, 11, 9], s[-1])
-        recover = s1.recover_global_align_multiple_solutions(s2, t)
+        recover = list(s1.recover_global_align_multiple_solutions(s2, t))
         self.assertListEqual([('PHSW_G', '_HGWAG')], recover)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

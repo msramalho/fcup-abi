@@ -91,8 +91,8 @@ class BioSeq(object):
 
     def _traceback_step(self, seq, step, l, r, i, j):
         """Given a traceback matrix position return the previous position"""
-        if step == HORIZONTAL: j -= 1; l += GAP; r += seq[j]
-        elif step == VERTICAL: i -= 1; r += GAP; l += self[i]
+        if step == HORIZONTAL: j -= 1; l += GAP    ; r += seq[j]
+        elif step == VERTICAL: i -= 1; l += self[i]; r += GAP
         else: i -= 1; j -= 1; l += self[i]; r += seq[j]
         return (l, r, i, j)
 
@@ -124,7 +124,6 @@ class BioSeq(object):
 
     def _recover_local_dfs(self, seq, t, i, j):
         """helper function that uses DFS to build multiple results"""
-        print(i, j, self[i - 1], seq[j - 1])
         if i == 0 and j == 0: return [("", "")]
         chains=[]
         res=["", ""]
