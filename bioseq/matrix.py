@@ -15,7 +15,8 @@ class Matrix:
 
     def max(self):
         """Maximum value in the matrix"""
-        return max(c for r in self for c in r)
+        # return max(c for r in self for c in r)
+        return max((c,i,j) for i,r in enumerate(self) for j,c in enumerate(r))
 
     def min(self):
         """Minimum value in the matrix"""

@@ -5,10 +5,10 @@ from .matrix import Matrix
 from .utils import *
 
 # traceback settings
-TERMINATION = -1
 DIAGONAL = 0
 VERTICAL = 1
 HORIZONTAL = 2
+TERMINATION = 3
 
 
 class BioSeq(object):
@@ -61,7 +61,7 @@ class BioSeq(object):
         """Needleman–Wunsch"""
         # create the score and traceback matrices
         s = Matrix(len(self) + 1, len(seq) + 1)
-        t = Matrix(len(self) + 1, len(seq) + 1, [TERMINATION])
+        t = Matrix(len(self) + 1, len(seq) + 1)
         # set the row and col to gaps
         s[0] = [i * g for i in range(len(seq) + 1)]
         s.set_col(0, [i * g for i in range(len(self) + 1)])
@@ -93,21 +93,53 @@ class BioSeq(object):
         """Given two sequences and their Score and Traceback global alignment functions, return all the solutions"""
         return [(a[::-1], b[::-1]) for a, b in self._recover_global_dfs(seq, t, len(self), len(seq))]
 
-    def local_align_multiple_solutions(self):
+    def local_align_multiple_solutions(self, seq, sm, g):
         """Smith–Waterman"""
-        pass
+        # create the score and traceback matrices
+        s = Matrix(len(self) + 1, len(seq) + 1)
+        t = Matrix(len(self) + 1, len(seq) + 1, [TERMINATION])
+        # set the row and col to default directions
+        t[0] = [[TERMINATION]] * (len(seq) + 1)
+        t.set_col(0, [[TERMINATION]] * (len(self) + 1))
+        # fill score matrix
+        for i in range(1, len(self) + 1):  # for each row
+            for j in range(1, len(seq) + 1):  # for each col
+                d = [s[i - 1][j - 1] + sm[self[i - 1] + seq[j - 1]], s[i - 1][j] + g, s[i][j - 1] + g, 0]
+                s[i][j] = max(d)  # set the score
+                t[i][j] = [k for k, v in enumerate(d) if v == s[i][j]]  # set directions
+        return s, t
 
-    def recover_local_align_multiple_solutions(self):
-        """"""
-        pass
+    def _recover_local_dfs(self, seq, t, i, j):
+        """helper function that uses DFS to build multiple results"""
+        if i == 0 and j == 0: return [("","")]
+        chains = []
+        res = ["", ""]
+        for step in t[i][j]:
+            if step == HORIZONTAL: j-=1; res[0] += GAP; res[1] += seq[j]
+            elif step == VERTICAL: i-=1; res[1] += GAP; res[0] += self[i]
+            elif step == DIAGONAL: i-=1; j-=1; res[0] += self[i]; res[1] += seq[j]
+            else: return chains
+            for a, b in self._recover_local_dfs(seq, t, i, j):
+                chains.append((res[0] + a, res[1] + b))
+        return chains
 
-    def compare_pairwise_global_align(self):
-        """"""
-        pass
+
+    def recover_local_align_multiple_solutions(self, seq, t):
+        """Given two sequences and their Score and Traceback local alignment functions, return all the solutions"""
+        m, i, j = t.max()
+        return [(a[::-1], b[::-1]) for a, b in self._recover_local_dfs(seq, t,i, j)]
+
+    def compare_pairwise_global_align(seqs1, seqs2):
+        """For every combination return Score and Traceback matrices, global alignment"""
+        for s1 in seqs1:
+            for s2 in seqs2:
+                yield s1.global_align_multiple_solutions(s2)
 
     def compare_pairwise_local_align(self):
-        """"""
-        pass
+        """For every combination return Score and Traceback matrices, local alignment"""
+        for s1 in seqs1:
+            for s2 in seqs2:
+                yield s1.local_align_multiple_solutions(s2)
 
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""

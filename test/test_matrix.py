@@ -51,9 +51,9 @@ class TestMatrix(unittest.TestCase):
 
     def test_max_min(self):
         m = Matrix(10, 10, 5)
-        self.assertEqual(5, m.max())
+        self.assertEqual((5, 9, 9), m.max())
         m[0][7] = 5005
-        self.assertEqual(5005, m.max())
+        self.assertEqual((5005, 0, 7), m.max())
         self.assertEqual(5, m.min())
         m[7][0] = -5005
         self.assertEqual(-5005, m.min())
