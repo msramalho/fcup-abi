@@ -17,7 +17,7 @@ class MyAlign:
     def __str__(self):
         res = ""
         for seq in self.listseqs:
-            res += "\n" + seq 
+            res += seq + "\n" 
         return res
     
     def num_seqs(self):
