@@ -1,3 +1,7 @@
+# from statistics import mode
+from collections import Counter
+from MySeq import MySeq
+
 class MyAlign:
 
     def __init__(self, lseqs, al_type = "protein"):
@@ -31,7 +35,11 @@ class MyAlign:
         return res
     
     def consensus (self):
-        # ...
+        # most frequent excluding gaps
+        res = ""
+        for c in range(len(self)):
+            res += list(filter(lambda x: x[0]!="-", Counter(self.column(c)).most_common()))[0][0]
+        return MySeq(res)
 
 
 if __name__ == "__main__": 
@@ -44,4 +52,4 @@ if __name__ == "__main__":
     print(alig.consensus())
 
     alig2 = MyAlign(["VJKK","JRSK","VRSK"])
-    print(alig2.richpolarbasic())
+    # print(alig2.richpolarbasic())
