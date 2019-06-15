@@ -1,5 +1,6 @@
 import bioseq
 from pkgutil import iter_modules
+from collections import defaultdict
 
 GAP = "_"
 
@@ -15,7 +16,7 @@ def read_fasta(filename):
         fastas = ("\n" + f.read().lstrip()).split("\n>")  # force split on descriptions
         for f in fastas[1:]:  # ignore the first empty
             p = f.split("\n")
-            yield (p[0], bioseq.proteinseq.ProteinSeq("".join(p[1:])))
+            yield bioseq.proteinseq.ProteinSeq("".join(p[1:]), p[0])
 
 
 def module_exists(module_name):
@@ -44,7 +45,15 @@ def score_pos(c1, c2, sm, g):
     return g if c1 == GAP or c2 == GAP else sm[c1 + c2]
 
 
+def kmer_dict(seq, k):
+    """Create a dictionary of kmer->list of indexes in seq"""
+    res = defaultdict(list)
+    for i, kmer in kmer_generator(seq, k):
+        res[kmer] += [i]
+    return res
+
+
 def kmer_generator(seq, k):
-    """Given a sliceable object seq and a value for k, this function returns a generator for contiguous k-mers in seq"""
+    """Given a sliceable object seq and a value for k, this function returns a generator for contiguous k-mers in seq, returns a tuple of index, kmer"""
     for i in range(len(seq) - k + 1):
-        yield seq[i:i + k]
+        yield i, seq[i:i + k]
