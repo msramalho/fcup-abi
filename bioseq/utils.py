@@ -25,7 +25,7 @@ def module_exists(module_name):
 
 def substitution_matrix(alphabet, match, mismatch):
     """Generate a substitution matrix from an alphabet, matcha and mismatch values"""
-    return {x+y: match if x == y else mismatch for x in alphabet for y in alphabet}
+    return {x + y: match if x == y else mismatch for x in alphabet for y in alphabet}
 
 
 def read_substitution_matrix_file(filename):
@@ -41,4 +41,10 @@ def read_substitution_matrix_file(filename):
 
 def score_pos(c1, c2, sm, g):
     """score of a position (column). receives substituion_matrix and gap"""
-    return g if c1 == GAP or c2 == GAP else sm[c1+c2]
+    return g if c1 == GAP or c2 == GAP else sm[c1 + c2]
+
+
+def kmer_generator(seq, k):
+    """Given a sliceable object seq and a value for k, this function returns a generator for contiguous k-mers in seq"""
+    for i in range(len(seq) - k + 1):
+        yield seq[i:i + k]
