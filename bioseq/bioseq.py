@@ -201,3 +201,9 @@ class BioSeq(object):
     def __getslice__(self, start, stop, step=1):
         """get elements from [start to stop[ of sequence with a custom step"""
         return self.sequence[start:stop:step]
+
+    def __eq__(self, other):
+        return str(self) == str(other) and type(self) == type(other)
+    
+    def __hash__(self):
+        return hash(str(self))
