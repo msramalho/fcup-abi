@@ -15,11 +15,17 @@ class TestMSA(unittest.TestCase):
         self.assertEqual(m.g, -3)
 
     def test_align(self):
-        seqs = [DNASeq("ATAGC"), DNASeq("AACC")]
         m = MSA(sm2, -1)
-        self.assertEqual("ATACC", str(m.align(seqs)))
+
+        seqs = [DNASeq("ATAGC"), DNASeq("AACC")]
+        c, aligned = m.align(seqs)
+        self.assertEqual("ATACC", str(c))
+        self.assertEqual(len(aligned), 2)
+
         seqs = [DNASeq("ATAGC"), DNASeq("AACC"), DNASeq("ATGAC")]
-        self.assertEqual("ATGACC", str(m.align(seqs)))
+        c, aligned = m.align(seqs)
+        self.assertEqual("ATGACC", str(c))
+        self.assertEqual(len(aligned), 3)
 
     def test_consensus(self):
         m = MSA(sm2, -1)
