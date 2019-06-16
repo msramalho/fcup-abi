@@ -152,6 +152,10 @@ class BioSeq(object):
         """Given a Biological sequence, generate the reverse complement sequence for the specific type. Uses the static variable reverse"""
         return "".join(type(self).reverse[x] for x in self.sequence)[::-1]
 
+    def add_gap(self, index):
+        """Add a gap to given index of the current sequence"""
+        self.sequence = self.sequence[0:index] + GAP + self.sequence[index:]
+
     def pretty_print(self):
         """Outputs a prettified and informative string onto the console, describing the current sequence"""
         print("""Sequence Type:   %s\nLength:          %d\nToken frequency: %s\nSequence:\n%s""" % (
