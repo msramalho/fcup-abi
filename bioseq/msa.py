@@ -1,4 +1,5 @@
 from .utils import GAP
+from collections import Counter
 
 
 class MSA:
@@ -12,24 +13,36 @@ class MSA:
     def align(self, seqs):
         """Receive a list of sequences to align and return the MSA result"""
         c = seqs[0]
+        aligned = [c]
         klass = c.__class__
         for s in seqs[1:]:
             score, traceback = c.global_align_multiple_solutions(s, self.sm, self.g)
-            l, r = next(c.recover_global_align_multiple_solutions(s, traceback))
-            c = self.consensus(l, r, klass)
+            c, s = next(c.recover_global_align_multiple_solutions(s, traceback))
+            aligned = self.update_aligned_with_gaps(aligned, c)
+            aligned.append(klass(s))  # add temp alignments to the list of processed
+            c = self.consensus(aligned + [s], klass)
         return c
 
-    def consensus(self, l, r, klass):
-        """Calculate the consensus of two sequences"""
+    def update_aligned_with_gaps(self, aligned, l):
+        """include the new gaps in the previously aligned sequences so that the consensus function can use all the previous sequences and reduce error progagation"""
+        gaps = [i for i in range(len(l)) if l[i] == GAP]
+        for i, a in enumerate(aligned):
+            for g in gaps: a.add_gap(g)
+            aligned[i] = a
+        return aligned
+
+    def consensus(self, seqs, klass):
+        """Calculate the consensus of all sequences with the new sequence"""
         res = ""
-        for i in range(len(l)):
-            res += self.consensus_col(l[i], r[i])
+        for i in range(len(seqs[0])):
+            mc = Counter(self.get_col(seqs, i)).most_common()
+            mc = list(filter(lambda x: x[0]!=GAP, mc))
+            mx = mc[0][1]
+            mc = filter(lambda x: x[1]==mx, mc)
+            mc = sorted(map(lambda x: x[0], mc))
+            res += mc[0]
         return klass(res)
 
-    def consensus_col(self, c1, c2):
-        """Given two columns, return the most frequent, excluding gaps or the lexicographically smaller"""
-        if c1 == GAP: return c2
-        if c2 == GAP: return c1
-        if c1 == c2: return c1
-        if c1 < c2: return c1
-        else: return c2
+    def get_col(self, seqs, col):
+        """return all the characters in column index of several sequences"""
+        return [s[col] for s in seqs]
