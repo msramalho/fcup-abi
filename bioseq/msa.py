@@ -1,5 +1,6 @@
 from .utils import GAP
 from collections import Counter
+import copy 
 
 
 class MSA:
@@ -10,8 +11,9 @@ class MSA:
         self.sm = sm
         self.g = g
 
-    def align(self, seqs):
+    def align(self, sequences):
         """Receive a list of sequences to align and return the MSA result"""
+        seqs = [copy.deepcopy(s) for s in sequences]
         c = seqs[0]
         aligned = [c]
         klass = c.__class__
