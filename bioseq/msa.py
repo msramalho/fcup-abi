@@ -21,7 +21,7 @@ class MSA:
             aligned = self.update_aligned_with_gaps(aligned, c)
             aligned.append(klass(s))  # add temp alignments to the list of processed
             c = self.consensus(aligned + [s], klass)
-        return c
+        return c, aligned
 
     def update_aligned_with_gaps(self, aligned, l):
         """include the new gaps in the previously aligned sequences so that the consensus function can use all the previous sequences and reduce error progagation"""
