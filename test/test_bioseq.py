@@ -32,6 +32,13 @@ class TestBioSeq(unittest.TestCase):
         s = BioSeq("ATATAT", "PROTEIN")
         self.assertRaises(Exception, BioSeq, "ATATA", "asd")
 
+    def test_add_gap(self):
+        s = BioSeq("ATGC", "DNA")
+        self.assertEqual("ATGC", str(s))
+        s.add_gap(2)
+        self.assertEqual("AT_GC", str(s))
+
+
     def test_str(self):
         s = BioSeq("ATATAT", "DNA")
         self.assertEqual("ATATAT", str(s))
