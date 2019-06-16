@@ -28,9 +28,9 @@ class Blast:
         # produce scores
         scores = self.get_hits_score(query, hits, threshold)
         # sort
-        print(scores)
+        scores.sort(key=lambda x:x[1], reverse=True)
         # return first top
-        pass
+        return scores[:top]
 
     def get_hits_score(self, query, hits, threshold):
         scores = defaultdict(int)
@@ -39,7 +39,7 @@ class Blast:
                 for h in s_hits:
                     scores[seq] = max(scores[seq], self.extend_hit(query, seq, h, threshold))
                     pbar.update()
-        return scores
+        return list(scores.items())
 
     def get_hits(self, query):
         """return a dict of {seq: list of tuples (query_index, seq_index)} where there are matches between database sequences and the query sequence"""
