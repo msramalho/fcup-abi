@@ -24,9 +24,10 @@ class Matrix:
         ma = max(c for r in self for c in r)
         return [(c, i, j) for i, r in enumerate(self) for j, c in enumerate(r) if c == ma]
 
-    def min(self):
+    def min(self, ignore=None):
         """Minimum value in the matrix"""
-        return min(c for r in self for c in r)
+        mi = min(c for r in self for c in r if c != ignore)
+        return [(c, i, j) for i, r in enumerate(self) for j, c in enumerate(r) if c == mi]
 
     def square(self):
         """Test if matrix is squared"""
