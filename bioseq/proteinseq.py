@@ -4,7 +4,7 @@ from .utils import GAP
 
 class ProteinSeq(BioSeq):
     """Biological Sequence specific for PROTEINS"""
-    valid_tokens = {'P', 'F', GAP, 'M', 'I', 'R', 'K', 'A', 'L', 'V', 'Q', 'E', 'C', 'N', 'W', 'H', 'S', 'T', 'D', 'G', 'Y'}
+    valid_tokens = {'P', 'F', 'M', 'I', 'R', 'K', 'A', 'L', 'V', 'Q', 'E', 'C', 'N', 'W', 'H', 'S', 'T', 'D', 'G', 'Y', GAP}
 
     def __init__(self, sequence, name=None):
         super().__init__(sequence, "PROTEIN")
