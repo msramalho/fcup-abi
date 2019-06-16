@@ -12,18 +12,19 @@ class MSA:
     def align(self, seqs):
         """Receive a list of sequences to align and return the MSA result"""
         c = seqs[0]
+        klass = c.__class__
         for s in seqs[1:]:
             score, traceback = c.global_align_multiple_solutions(s, self.sm, self.g)
             l, r = next(c.recover_global_align_multiple_solutions(s, traceback))
-            c = self.consensus(l, r)
+            c = self.consensus(l, r, klass)
         return c
 
-    def consensus(self, l, r):
+    def consensus(self, l, r, klass):
         """Calculate the consensus of two sequences"""
         res = ""
         for i in range(len(l)):
             res += self.consensus_col(l[i], r[i])
-        return l.__class__(res)
+        return klass(res)
 
     def consensus_col(self, c1, c2):
         """Given two columns, return the most frequent, excluding gaps or the lexicographically smaller"""
