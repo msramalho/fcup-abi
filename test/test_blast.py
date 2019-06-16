@@ -5,7 +5,8 @@ from bioseq.utils import *
 
 db = "bioseq/resources/seqdump.txt"
 fq = "bioseq/resources/source.fasta"
- 
+
+
 class TestBlast(unittest.TestCase):
     def test_constructor(self):
         b = Blast(db, 3)
@@ -21,11 +22,14 @@ class TestBlast(unittest.TestCase):
     def test_forward_matching(self):
         b = Blast(db, 3)
         q = next(read_fasta(fq))
-        self.assertEqual(b.forward_matching(q, q, (0,0), 0.5), len(q) - 3)
-        self.assertEqual(b.forward_matching(ProteinSeq("PFMI"), ProteinSeq("PFMI"), (0,0), 0.5), 1)
-        self.assertEqual(b.forward_matching(ProteinSeq("PFMI"), ProteinSeq("PFMI"), (3,3), 0.5), 0)
-        self.assertEqual(b.extend_hit(ProteinSeq("PFMI"), ProteinSeq("PFMI"), (0,0), 0.5), 1)
-        self.assertEqual(b.extend_hit(ProteinSeq("PFMI"), ProteinSeq("PFMI"), (3,3), 0.5), 1)
+        self.assertEqual(b.forward_matching(q, q, (0, 0), 0.5), (len(q) - 3, len(q) - 3))
+        self.assertEqual(b.forward_matching(ProteinSeq("PFMI"), ProteinSeq("PFMI"), (0, 0), 0.5), (1, 1))
+        self.assertEqual(b.forward_matching(ProteinSeq("PFMI"), ProteinSeq("PFMI"), (3, 3), 0.5), (0, 0))
+        self.assertEqual(b.forward_matching(ProteinSeq("PFMIPPM"), ProteinSeq("PFMIPPF"), (0, 0), 0.5), (3, 4))
+        self.assertEqual(b.extend_hit(ProteinSeq("PFMI"), ProteinSeq("PFMI"), (0, 0), 0.5), 1.0)
+        self.assertEqual(b.extend_hit(ProteinSeq("PFMI"), ProteinSeq("PFMI"), (3, 3), 0.5), 1.0)
+        self.assertEqual(b.extend_hit(ProteinSeq("PFMIPPM"), ProteinSeq("PFMIPPF"), (0, 0), 0.5), 0.75)
+
 
 if __name__ == '__main__':
     unittest.main()
