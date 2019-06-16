@@ -126,8 +126,7 @@ class BioSeq(object):
                 if j > i: continue
                 m[j][i] = s2.global_align_multiple_solutions(s1, sm, g)[0].last()
         # only triangular matrix is calculated, the mirroring is much faster
-        m.apply(lambda v, i, j: m[j][i] if j < i else v)
-        return m
+        return m.symmetric()
 
     def compare_pairwise_local_align(seqs, sm, g, names=None):
         """For every combination return Score and Traceback matrices, local alignment"""
@@ -137,8 +136,7 @@ class BioSeq(object):
                 if j > i: continue
                 m[j][i] = s2.local_align_multiple_solutions(s1, sm, g)[0].max()[0][0]
         # only triangular matrix is calculated, the mirroring is much faster
-        m.apply(lambda v, i, j: m[j][i] if j < i else v)
-        return m
+        return m.symmetric()
 
     def frequency(self):
         """Calculates the relative frequency of each token in the sequence"""
