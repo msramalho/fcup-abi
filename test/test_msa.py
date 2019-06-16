@@ -23,31 +23,16 @@ class TestMSA(unittest.TestCase):
 
     def test_consensus(self):
         m = MSA(sm2, -1)
-        c = m.consensus(DNASeq("ATAGC"), DNASeq("A_ACC"))
+        c = m.consensus([DNASeq("ATAGC"), DNASeq("A_ACC")], DNASeq)
         self.assertEqual(type(c), bioseq.dnaseq.DNASeq)
         self.assertEqual(str(c), "ATACC")
-        
-    def test_consensus(self):
-        m = MSA(sm2, -1)
-        self.assertEqual(m.consensus_col("A", GAP), "A")
-        self.assertEqual(m.consensus_col(GAP, "A"), "A")
-        self.assertEqual(m.consensus_col("A", "A"), "A")
-        self.assertEqual(m.consensus_col("A", "C"), "A")
-        self.assertEqual(m.consensus_col("C", "A"), "A")
-        self.assertEqual(m.consensus_col("C", "C"), "C")
-        self.assertEqual(m.consensus_col("C", "G"), "C")
-        self.assertEqual(m.consensus_col("G", "C"), "C")
-        self.assertEqual(m.consensus_col("G", "G"), "G")
-        self.assertEqual(m.consensus_col("G", "T"), "G")
-        self.assertEqual(m.consensus_col("T", "G"), "G")
-        self.assertEqual(m.consensus_col("T", "T"), "T")
-        self.assertEqual(m.consensus_col("C", GAP), "C")
-        self.assertEqual(m.consensus_col(GAP, "C"), "C")
-        self.assertEqual(m.consensus_col("G", GAP), "G")
-        self.assertEqual(m.consensus_col(GAP, "G"), "G")
-        self.assertEqual(m.consensus_col("T", GAP), "T")
-        self.assertEqual(m.consensus_col(GAP, "T"), "T")
 
+    def test_get_col(self):
+        m = MSA(sm2, -1)
+        seqs = [DNASeq("ATAGC"), DNASeq("A_ACC")]
+        self.assertEqual(m.get_col(seqs, 0), ["A", "A"])
+        self.assertEqual(m.get_col(seqs, 1), ["T", "_"])
+        
 
 if __name__ == '__main__':
     unittest.main()
