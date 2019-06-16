@@ -5,7 +5,7 @@ from .proteinseq import ProteinSeq
 
 class RNASeq(BioSeq):
     """Biological Sequence specific for RNA"""
-    valid_tokens = {"A", "U", "C", "G"}
+    valid_tokens = {"A", "U", "C", "G", GAP}
     reverse = {"A": "U", "U": "A", "C": "G", "G": "C"}
     dict_of_aminoacids = get_dict_of_dna_to_aminoacids()
 
