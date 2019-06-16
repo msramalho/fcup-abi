@@ -46,6 +46,11 @@ class Matrix:
         self.apply(lambda x, _i, _j: x * val)
         return self
 
+    def symmetric(self):
+        """Duplicate the values in the primary triangular matrix into the secondary one"""
+        self.apply(lambda v, i, j: self[j][i] if j < i else v)
+        return self
+
     def apply(self, operation):
         """general private method to apply an operation to each cell. The operation should receive (cell value, row index, col index)"""
         for i in range(len(self)):
@@ -86,6 +91,10 @@ class Matrix:
     def __iter__(self):
         """iterator for the matrix, returns each row"""
         yield from self.matrix
+
+    def __repr__(self):
+        """for representation of Matrix"""
+        return self.__str__()
 
     def __str__(self):
         """pretty print matrix"""
