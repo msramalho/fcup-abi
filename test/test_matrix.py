@@ -54,9 +54,10 @@ class TestMatrix(unittest.TestCase):
         self.assertEqual((5, 0, 0), m.max()[0])
         m[0][7] = 5005
         self.assertEqual([(5005, 0, 7)], m.max())
-        self.assertEqual(5, m.min())
+        self.assertEqual(99, len(m.min()))
+        self.assertEqual((5, 0, 0), m.min()[0])
         m[7][0] = -5005
-        self.assertEqual(-5005, m.min())
+        self.assertEqual([(-5005, 7, 0)], m.min())
 
     def test_square(self):
         m = Matrix(10, 10, 3)
