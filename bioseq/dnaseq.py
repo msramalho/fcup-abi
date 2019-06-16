@@ -1,10 +1,11 @@
 from bioseq import BioSeq
 from .rnaseq import RNASeq
+from .utils import GAP
 
 
 class DNASeq(BioSeq):
     """Biological Sequence specific for DNA"""
-    valid_tokens = {"A", "T", "C", "G"}
+    valid_tokens = {"A", "T", "C", "G", GAP}
     reverse = {"A": "T", "T": "A", "C": "G", "G": "C"}
 
     def __init__(self, sequence):
