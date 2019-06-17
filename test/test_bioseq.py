@@ -39,6 +39,15 @@ class TestBioSeq(unittest.TestCase):
         self.assertEqual("AT_GC", str(s))
 
 
+    def test_eq(self):
+        s1 = BioSeq("ATATAT", "DNA")
+        s2 = BioSeq("ATATAT", "DNA")
+        self.assertTrue(s1==s2)
+        self.assertFalse(s1!=s2)
+        s3 = BioSeq("ATATATX", "DNA")
+        s4 = BioSeq("ATATAT", "PROTEIN")
+        self.assertFalse(s1==s3)
+
     def test_str(self):
         s = BioSeq("ATATAT", "DNA")
         self.assertEqual("ATATAT", str(s))
