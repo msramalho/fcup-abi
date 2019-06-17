@@ -14,9 +14,6 @@ class BTree:
         n2.height = d
         return n
 
-    def __str__(self):
-        return str(self.id) + "(h=%f)" % self.height + "\n " + str(self.left) + "|" + str(self.right) + "\n"
-
     def to_clade(self):
         if self.left: return '<clade branch_length="%.3f">' % self.height + self.left.to_clade() + self.right.to_clade() + '</clade>'
         return '<clade branch_length="%.3f"><name>%s</name></clade>' % (self.height, self.id)
