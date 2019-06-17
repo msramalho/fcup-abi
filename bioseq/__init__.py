@@ -4,6 +4,7 @@ from bioseq.rnaseq import RNASeq
 from bioseq.blast import Blast
 from bioseq.msa import MSA
 from bioseq.ptree import PTree
+from bioseq.btree import BTree
 from bioseq.proteinseq import ProteinSeq
 from bioseq.utils import *
 from bioseq.matrix import *
