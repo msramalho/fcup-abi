@@ -87,7 +87,7 @@ class PTree:
         """return the merged cluster from two instances, averaging the distances"""
         return ("(%s,%s)" % (i, j), c, (x[2] + y[2]) / 2)
 
-    def draw(self):
+    def draw(self): # pragma: no cover
         if "tree" not in dir(self): return "call clustering first"
         Phylo.draw(self.tree)
 
