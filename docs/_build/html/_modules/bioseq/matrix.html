@@ -142,7 +142,7 @@
             
   <h1>Source code for bioseq.matrix</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">module_exists</span>
-
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <div class="viewcode-block" id="Matrix"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.matrix.Matrix">[docs]</a><span class="k">class</span> <span class="nc">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Wrapper class to provide a numerical matrix interface with relevant and reusable functions&quot;&quot;&quot;</span>
@@ -167,9 +167,10 @@
         <span class="n">ma</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">r</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[(</span><span class="n">c</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">ma</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Matrix.min"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.matrix.Matrix.min">[docs]</a>    <span class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Matrix.min"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.matrix.Matrix.min">[docs]</a>    <span class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Minimum value in the matrix&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">r</span><span class="p">)</span></div>
+        <span class="n">mi</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">r</span> <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ignore</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="n">c</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">mi</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Matrix.square"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.matrix.Matrix.square">[docs]</a>    <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Test if matrix is squared&quot;&quot;&quot;</span>
@@ -189,6 +190,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">_i</span><span class="p">,</span> <span class="n">_j</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">val</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
+<div class="viewcode-block" id="Matrix.symmetric"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.matrix.Matrix.symmetric">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Duplicate the values in the primary triangular matrix into the secondary one&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="bp">self</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
 <div class="viewcode-block" id="Matrix.apply"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.matrix.Matrix.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;general private method to apply an operation to each cell. The operation should receive (cell value, row index, col index)&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
@@ -198,15 +204,26 @@
 
 <div class="viewcode-block" id="Matrix.display"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.matrix.Matrix.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_to</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;Display the matrix in a plot if matplotlib is installed. If save_to is used the plot is saved and not shown.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">module_exists</span><span class="p">(</span><span class="s2">&quot;matplotlib&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">save_to</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_to</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Matrix.graph"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.matrix.Matrix.graph">[docs]</a>    <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cut</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+        <span class="sd">&quot;&quot;&quot;Draw a graph from the matrix, using only the superior triangle&quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span> <span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">cut</span><span class="p">:</span>
+                    <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+        
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the length of the matrix - number of rows&quot;&quot;&quot;</span>
@@ -229,6 +246,10 @@
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;iterator for the matrix, returns each row&quot;&quot;&quot;</span>
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;for representation of Matrix&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;pretty print matrix&quot;&quot;&quot;</span>

@@ -143,11 +143,12 @@
   <h1>Source code for bioseq.dnaseq</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">bioseq</span> <span class="k">import</span> <span class="n">BioSeq</span>
 <span class="kn">from</span> <span class="nn">.rnaseq</span> <span class="k">import</span> <span class="n">RNASeq</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">GAP</span>
 
 
 <div class="viewcode-block" id="DNASeq"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.dnaseq.DNASeq">[docs]</a><span class="k">class</span> <span class="nc">DNASeq</span><span class="p">(</span><span class="n">BioSeq</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Biological Sequence specific for DNA&quot;&quot;&quot;</span>
-    <span class="n">valid_tokens</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">}</span>
+    <span class="n">valid_tokens</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">GAP</span><span class="p">}</span>
     <span class="n">reverse</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>

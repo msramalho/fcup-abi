@@ -60,6 +60,49 @@ Matrix module
     :private-members:
 
 
+
+BLAST module
+-------------------------------
+.. automodule:: bioseq.blast
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+
+
+
+BinaryTree module
+-------------------------------
+.. automodule:: bioseq.btree
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+
+
+
+MultipleSequenceAlignment module
+---------------------------------
+.. automodule:: bioseq.msa
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+
+
+
+PhylogeneticTree module
+-------------------------------
+.. automodule:: bioseq.ptree
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+
 Module contents
 ---------------
 

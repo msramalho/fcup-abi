@@ -143,6 +143,7 @@
   <h1>Source code for bioseq.utils</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">bioseq</span>
 <span class="kn">from</span> <span class="nn">pkgutil</span> <span class="k">import</span> <span class="n">iter_modules</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
 
 <span class="n">GAP</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span>
 
@@ -158,7 +159,7 @@
         <span class="n">fastas</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">lstrip</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&gt;&quot;</span><span class="p">)</span>  <span class="c1"># force split on descriptions</span>
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fastas</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>  <span class="c1"># ignore the first empty</span>
             <span class="n">p</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">yield</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bioseq</span><span class="o">.</span><span class="n">proteinseq</span><span class="o">.</span><span class="n">ProteinSeq</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">:])))</span></div>
+            <span class="k">yield</span> <span class="n">bioseq</span><span class="o">.</span><span class="n">proteinseq</span><span class="o">.</span><span class="n">ProteinSeq</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="module_exists"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.module_exists">[docs]</a><span class="k">def</span> <span class="nf">module_exists</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
@@ -168,7 +169,7 @@
 
 <div class="viewcode-block" id="substitution_matrix"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.substitution_matrix">[docs]</a><span class="k">def</span> <span class="nf">substitution_matrix</span><span class="p">(</span><span class="n">alphabet</span><span class="p">,</span> <span class="n">match</span><span class="p">,</span> <span class="n">mismatch</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate a substitution matrix from an alphabet, matcha and mismatch values&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">:</span> <span class="n">match</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="k">else</span> <span class="n">mismatch</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">alphabet</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">alphabet</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">:</span> <span class="n">match</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="k">else</span> <span class="n">mismatch</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">alphabet</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">alphabet</span><span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="read_substitution_matrix_file"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.read_substitution_matrix_file">[docs]</a><span class="k">def</span> <span class="nf">read_substitution_matrix_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -184,7 +185,21 @@
 
 <div class="viewcode-block" id="score_pos"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.score_pos">[docs]</a><span class="k">def</span> <span class="nf">score_pos</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">sm</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;score of a position (column). receives substituion_matrix and gap&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">g</span> <span class="k">if</span> <span class="n">c1</span> <span class="o">==</span> <span class="n">GAP</span> <span class="ow">or</span> <span class="n">c2</span> <span class="o">==</span> <span class="n">GAP</span> <span class="k">else</span> <span class="n">sm</span><span class="p">[</span><span class="n">c1</span><span class="o">+</span><span class="n">c2</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">g</span> <span class="k">if</span> <span class="n">c1</span> <span class="o">==</span> <span class="n">GAP</span> <span class="ow">or</span> <span class="n">c2</span> <span class="o">==</span> <span class="n">GAP</span> <span class="k">else</span> <span class="n">sm</span><span class="p">[</span><span class="n">c1</span> <span class="o">+</span> <span class="n">c2</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="kmer_dict"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.kmer_dict">[docs]</a><span class="k">def</span> <span class="nf">kmer_dict</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a dictionary of kmer-&gt;list of indexes in seq&quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">kmer</span> <span class="ow">in</span> <span class="n">kmer_generator</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">kmer</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="kmer_generator"><a class="viewcode-back" href="../../source/bioseq.html#bioseq.utils.kmer_generator">[docs]</a><span class="k">def</span> <span class="nf">kmer_generator</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Given a sliceable object seq and a value for k, this function returns a generator for contiguous k-mers in seq, returns a tuple of index, kmer&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">seq</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span></div>
 </pre></div>
 
            </div>

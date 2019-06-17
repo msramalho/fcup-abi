@@ -88,6 +88,10 @@
 <li><a class="reference internal" href="#module-bioseq.proteinseq">Protein Sequence module</a></li>
 <li><a class="reference internal" href="#module-bioseq.utils">utils module</a></li>
 <li><a class="reference internal" href="#module-bioseq.matrix">Matrix module</a></li>
+<li><a class="reference internal" href="#module-bioseq.blast">BLAST module</a></li>
+<li><a class="reference internal" href="#module-bioseq.btree">BinaryTree module</a></li>
+<li><a class="reference internal" href="#module-bioseq.msa">MultipleSequenceAlignment module</a></li>
+<li><a class="reference internal" href="#module-bioseq.ptree">PhylogeneticTree module</a></li>
 <li><a class="reference internal" href="#module-bioseq">Module contents</a></li>
 </ul>
 </li>
@@ -189,6 +193,12 @@
 <dt id="bioseq.bioseq.BioSeq._traceback_step">
 <code class="descname">_traceback_step</code><span class="sig-paren">(</span><em>seq</em>, <em>step</em>, <em>l</em>, <em>r</em>, <em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq._traceback_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq._traceback_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a traceback step return the previous position</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.bioseq.BioSeq.add_gap">
+<code class="descname">add_gap</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/bioseq.html#BioSeq.add_gap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.bioseq.BioSeq.add_gap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a gap to given index of the current sequence</p>
 </dd></dl>
 
 <dl class="method">
@@ -364,7 +374,7 @@
 
 <dl class="attribute">
 <dt id="bioseq.dnaseq.DNASeq.valid_tokens">
-<code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'G', 'T'}</em><a class="headerlink" href="#bioseq.dnaseq.DNASeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
+<code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'G', 'T', '_'}</em><a class="headerlink" href="#bioseq.dnaseq.DNASeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -413,7 +423,7 @@
 
 <dl class="attribute">
 <dt id="bioseq.rnaseq.RNASeq.valid_tokens">
-<code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'G', 'U'}</em><a class="headerlink" href="#bioseq.rnaseq.RNASeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
+<code class="descname">valid_tokens</code><em class="property"> = {'A', 'C', 'G', 'U', '_'}</em><a class="headerlink" href="#bioseq.rnaseq.RNASeq.valid_tokens" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -423,7 +433,7 @@
 <span id="protein-sequence-module"></span><h2>Protein Sequence module<a class="headerlink" href="#module-bioseq.proteinseq" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bioseq.proteinseq.ProteinSeq">
-<em class="property">class </em><code class="descclassname">bioseq.proteinseq.</code><code class="descname">ProteinSeq</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/proteinseq.html#ProteinSeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.proteinseq.ProteinSeq" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bioseq.proteinseq.</code><code class="descname">ProteinSeq</code><span class="sig-paren">(</span><em>sequence</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/proteinseq.html#ProteinSeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.proteinseq.ProteinSeq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bioseq.bioseq.BioSeq" title="bioseq.bioseq.BioSeq"><code class="xref py py-class docutils literal notranslate"><span class="pre">bioseq.bioseq.BioSeq</span></code></a></p>
 <p>Biological Sequence specific for PROTEINS</p>
 <dl class="method">
@@ -452,6 +462,18 @@
 <dt id="bioseq.utils.get_dict_of_dna_to_aminoacids">
 <code class="descclassname">bioseq.utils.</code><code class="descname">get_dict_of_dna_to_aminoacids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#get_dict_of_dna_to_aminoacids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.get_dict_of_dna_to_aminoacids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a dictionary that maps RNA codons onto their respective proteins</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioseq.utils.kmer_dict">
+<code class="descclassname">bioseq.utils.</code><code class="descname">kmer_dict</code><span class="sig-paren">(</span><em>seq</em>, <em>k</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#kmer_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.kmer_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dictionary of kmer-&gt;list of indexes in seq</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioseq.utils.kmer_generator">
+<code class="descclassname">bioseq.utils.</code><code class="descname">kmer_generator</code><span class="sig-paren">(</span><em>seq</em>, <em>k</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/utils.html#kmer_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.utils.kmer_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sliceable object seq and a value for k, this function returns a generator for contiguous k-mers in seq, returns a tuple of index, kmer</p>
 </dd></dl>
 
 <dl class="function">
@@ -511,6 +533,12 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="bioseq.matrix.Matrix.graph">
+<code class="descname">graph</code><span class="sig-paren">(</span><em>cut</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a graph from the matrix, using only the superior triangle</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="bioseq.matrix.Matrix.last">
 <code class="descname">last</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.last"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.last" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return last cell of matrix</p>
@@ -524,7 +552,7 @@
 
 <dl class="method">
 <dt id="bioseq.matrix.Matrix.min">
-<code class="descname">min</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.min"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.min" title="Permalink to this definition">¶</a></dt>
+<code class="descname">min</code><span class="sig-paren">(</span><em>ignore=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.min"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimum value in the matrix</p>
 </dd></dl>
 
@@ -551,6 +579,169 @@
 <code class="descname">sum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.sum" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate the sum of the values in the matrix</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="bioseq.matrix.Matrix.symmetric">
+<code class="descname">symmetric</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/matrix.html#Matrix.symmetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.matrix.Matrix.symmetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duplicate the values in the primary triangular matrix into the secondary one</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioseq.blast">
+<span id="blast-module"></span><h2>BLAST module<a class="headerlink" href="#module-bioseq.blast" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.blast.Blast">
+<em class="property">class </em><code class="descclassname">bioseq.blast.</code><code class="descname">Blast</code><span class="sig-paren">(</span><em>database</em>, <em>k</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/blast.html#Blast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.blast.Blast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handle Blast searches</p>
+<dl class="method">
+<dt id="bioseq.blast.Blast.build_db">
+<code class="descname">build_db</code><span class="sig-paren">(</span><em>database</em>, <em>k</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/blast.html#Blast.build_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.blast.Blast.build_db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.blast.Blast.extend_hit">
+<code class="descname">extend_hit</code><span class="sig-paren">(</span><em>query</em>, <em>seq</em>, <em>hit</em>, <em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/blast.html#Blast.extend_hit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.blast.Blast.extend_hit" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the score of extending forwards and backwards, see forward_matching</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.blast.Blast.forward_matching">
+<code class="descname">forward_matching</code><span class="sig-paren">(</span><em>query</em>, <em>seq</em>, <em>hit</em>, <em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/blast.html#Blast.forward_matching"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.blast.Blast.forward_matching" title="Permalink to this definition">¶</a></dt>
+<dd><p>advances on both sequences while ratio of matches is above threshold. returns the number of matches and the number of advances made</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.blast.Blast.get_hits">
+<code class="descname">get_hits</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/blast.html#Blast.get_hits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.blast.Blast.get_hits" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a dict of {seq: list of tuples (query_index, seq_index)} where there are matches between database sequences and the query sequence</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.blast.Blast.get_hits_score">
+<code class="descname">get_hits_score</code><span class="sig-paren">(</span><em>query</em>, <em>hits</em>, <em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/blast.html#Blast.get_hits_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.blast.Blast.get_hits_score" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.blast.Blast.search">
+<code class="descname">search</code><span class="sig-paren">(</span><em>query</em>, <em>top=10</em>, <em>threshold=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/blast.html#Blast.search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.blast.Blast.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a blast search of a given Protein sequence as query, return the best ‘top’ sequences</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioseq.btree">
+<span id="binarytree-module"></span><h2>BinaryTree module<a class="headerlink" href="#module-bioseq.btree" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.btree.BTree">
+<em class="property">class </em><code class="descclassname">bioseq.btree.</code><code class="descname">BTree</code><span class="sig-paren">(</span><em>id=None</em>, <em>left=None</em>, <em>right=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/btree.html#BTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.btree.BTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="bioseq.btree.BTree.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>n2</em>, <em>distance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/btree.html#BTree.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.btree.BTree.merge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.btree.BTree.to_clade">
+<code class="descname">to_clade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/btree.html#BTree.to_clade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.btree.BTree.to_clade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.btree.BTree.to_xml">
+<code class="descname">to_xml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/btree.html#BTree.to_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.btree.BTree.to_xml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioseq.msa">
+<span id="multiplesequencealignment-module"></span><h2>MultipleSequenceAlignment module<a class="headerlink" href="#module-bioseq.msa" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.msa.MSA">
+<em class="property">class </em><code class="descclassname">bioseq.msa.</code><code class="descname">MSA</code><span class="sig-paren">(</span><em>sm</em>, <em>g</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/msa.html#MSA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.msa.MSA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Progressive implementation of Multiple Sequence Alignment</p>
+<dl class="method">
+<dt id="bioseq.msa.MSA.align">
+<code class="descname">align</code><span class="sig-paren">(</span><em>sequences</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/msa.html#MSA.align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.msa.MSA.align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive a list of sequences to align and return the MSA result</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.msa.MSA.consensus">
+<code class="descname">consensus</code><span class="sig-paren">(</span><em>seqs</em>, <em>klass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/msa.html#MSA.consensus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.msa.MSA.consensus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the consensus of all sequences with the new sequence</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.msa.MSA.get_col">
+<code class="descname">get_col</code><span class="sig-paren">(</span><em>seqs</em>, <em>col</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/msa.html#MSA.get_col"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.msa.MSA.get_col" title="Permalink to this definition">¶</a></dt>
+<dd><p>return all the characters in column index of several sequences</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.msa.MSA.update_aligned_with_gaps">
+<code class="descname">update_aligned_with_gaps</code><span class="sig-paren">(</span><em>aligned</em>, <em>l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/msa.html#MSA.update_aligned_with_gaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.msa.MSA.update_aligned_with_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>include the new gaps in the previously aligned sequences so that the consensus function can use all the previous sequences and reduce error progagation</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioseq.ptree">
+<span id="phylogenetictree-module"></span><h2>PhylogeneticTree module<a class="headerlink" href="#module-bioseq.ptree" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bioseq.ptree.PTree">
+<em class="property">class </em><code class="descclassname">bioseq.ptree.</code><code class="descname">PTree</code><span class="sig-paren">(</span><em>sm</em>, <em>g</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements Phylogenetic Trees construction</p>
+<dl class="method">
+<dt id="bioseq.ptree.PTree.clustering">
+<code class="descname">clustering</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree.clustering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree.clustering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.ptree.PTree.distance_matrix">
+<code class="descname">distance_matrix</code><span class="sig-paren">(</span><em>seqs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree.distance_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree.distance_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the distance matrix between all pairs in seqs, assumes not aligned</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.ptree.PTree.distance_matrix_aligned">
+<code class="descname">distance_matrix_aligned</code><span class="sig-paren">(</span><em>seqs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree.distance_matrix_aligned"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree.distance_matrix_aligned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the distance matrix between all pairs in seqs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.ptree.PTree.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bioseq.ptree.PTree.find_t">
+<code class="descname">find_t</code><span class="sig-paren">(</span><em>c</em>, <em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree.find_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree.find_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>find the tuple with i and c as cluster ids, in whatever order</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.ptree.PTree.matrix_to_tuples">
+<code class="descname">matrix_to_tuples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree.matrix_to_tuples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree.matrix_to_tuples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the superior triangular matrix into tuples of (row, col, distance) which is a simpler way of implementing UPGMA</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.ptree.PTree.merge_t">
+<code class="descname">merge_t</code><span class="sig-paren">(</span><em>y</em>, <em>i</em>, <em>j</em>, <em>c</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree.merge_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree.merge_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the merged cluster from two instances, averaging the distances</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bioseq.ptree.PTree.phylo_tree">
+<code class="descname">phylo_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bioseq/ptree.html#PTree.phylo_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bioseq.ptree.PTree.phylo_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
