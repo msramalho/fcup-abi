@@ -218,10 +218,18 @@ input()
 
 
 # In[26]:
-
+# This piece of code is only used to extract the contents within brackets from the species names
+# so as to get more readable visualizations
+from copy import deepcopy
+def get_seq_with_name(x):
+    y = deepcopy(x)
+    n = y.name
+    y.name = n[n.index("[")+1:n.index("]")]
+    return y
+blast_seqs_names = list(map(get_seq_with_name, blast_seqs))
 
 print("perform UPGMA clustering")
-c, t = p.clustering(mx)
+c, t = p.clustering(mx, blast_seqs_names)
 print("simple clustering representation", c)
 input()
 

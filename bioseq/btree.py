@@ -1,8 +1,9 @@
 
 
 class BTree:
-    def __init__(self, id=None, left=None, right=None):
+    def __init__(self, id=None, left=None, right=None, name=None):
         self.id = id
+        self.name = name or id
         self.left = left
         self.right = right
         self.height = 0
@@ -16,7 +17,7 @@ class BTree:
 
     def to_clade(self):
         if self.left: return '<clade branch_length="%.3f">' % self.height + self.left.to_clade() + self.right.to_clade() + '</clade>'
-        return '<clade branch_length="%.3f"><name>%s</name></clade>' % (self.height, self.id)
+        return '<clade branch_length="%.3f"><name>%s</name></clade>' % (self.height, self.name)
 
     def to_xml(self):
         return '<?xml version="1.0" encoding="UTF-8"?><phyloxml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.phyloxml.org http://www.phyloxml.org/1.10/phyloxml.xsd" xmlns="http://www.phyloxml.org"><phylogeny rooted="true"><name>ABI Tree</name><clade>' + (self.left.to_clade() if self.left else "") + (self.right.to_clade() if self.right else "") + "</clade></phylogeny></phyloxml>"

@@ -47,8 +47,9 @@ class PTree:
                 t.add((i, j, m[i][j]))
         return t, set(range(len(m)))
 
-    def clustering(self, m):
-        trees = {i: BTree(i) for i in range(len(m))}
+    def clustering(self, m, seqs=None):
+        trees = {i: BTree(i) for i in range(len(m))} if not seqs else {i: BTree(i, name=seqs[i].name) for i in range(len(m))}
+        
         t, s = PTree.matrix_to_tuples(m)
         while len(t) != 1:
             # get min
