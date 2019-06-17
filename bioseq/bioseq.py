@@ -205,7 +205,9 @@ class BioSeq(object):
         return self.sequence[start:stop:step]
 
     def __eq__(self, other):
+        """assert equality between two bioseq instances (or inherited)"""
         return str(self) == str(other) and type(self) == type(other)
     
     def __hash__(self):
+        """hash function required after implementing eq, uses the uniqueness of str for that"""
         return hash(str(self))
