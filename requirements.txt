@@ -1,5 +1,5 @@
 matplotlib==3.0.3
 networkx==2.3
 tqdm==4.31.1
-Bio==0.1.0
+biopython==1.73
 coverage==4.5.3
