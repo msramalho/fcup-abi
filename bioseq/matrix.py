@@ -71,6 +71,19 @@ class Matrix:
             plt.show()
         return True
 
+    def graph(self, cut):
+        """Draw a graph from the matrix, using only the superior triangle"""
+        import networkx as nx
+        g = nx.Graph()
+        for i in range(len(self)): g.add_node(i)
+        
+        for i in range(len(self)):
+            for j in range(i+1, len(self[0])):
+                if self[i][j] < cut:
+                    g.add_edge(i, j)
+        
+        nx.draw(g, with_labels=True)
+
     def __len__(self):
         """Get the length of the matrix - number of rows"""
         return len(self.matrix)
