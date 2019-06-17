@@ -81,7 +81,6 @@ class PTree:
         """find the tuple with i and c as cluster ids, in whatever order"""
         for x in t:
             if (x[0] == i and x[1] == c) or (x[0] == c and x[1] == i): return x
-        return None
 
     def merge_t(x, y, i, j, c):
         """return the merged cluster from two instances, averaging the distances"""
@@ -91,10 +90,10 @@ class PTree:
         if "tree" not in dir(self): return "call clustering first"
         Phylo.draw(self.tree)
 
-    def __repr__(self):
+    def __repr__(self): # pragma: no cover
         return self.__str__()
 
-    def __str__(self):
+    def __str__(self): # pragma: no cover
         if "tree" not in dir(self): return "call clustering first"
         with io.StringIO() as output:
             Phylo.draw_ascii(self.tree, file=output)
