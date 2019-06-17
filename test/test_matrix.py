@@ -80,12 +80,21 @@ class TestMatrix(unittest.TestCase):
         self.assertEqual(len(output), l)
         self.assertIn("12", output)
 
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    def _test_repr(self, m,l, mock_stdout):
+        print([m])
+        output = mock_stdout.getvalue()
+        self.assertEqual(len(output), l)
+        self.assertIn("12", output)
+
     def test_str(self):
         m = Matrix(10, 4, 12)
         self._test_str(m, 131)
+        self._test_repr(m, 133)
         m.rows = ["-"]*10
         m.cols = ["-"]*4
         self._test_str(m, 166)
+        self._test_repr(m, 168)
 
     def test_display(self):
         filename = "temp_matrix.png"
