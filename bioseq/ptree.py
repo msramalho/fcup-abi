@@ -4,7 +4,9 @@ from .matrix import Matrix
 from .utils import GAP
 from .btree import BTree
 from tqdm import tqdm
-
+from Bio import Phylo
+import uuid
+import os, io
 
 class PTree:
     """Implements Phylogenetic Trees construction"""
@@ -64,13 +66,37 @@ class PTree:
                 t.update([newt])  # add the new tuple
                 s.add(newt[0])  # register the new cluster
         f = list(t)[0]
-        return "(%s,%s)" % (f[0], f[1]), BTree.merge(trees[f[0]], trees[f[1]], mn)
+        self.btree = BTree.merge(trees[f[0]], trees[f[1]], mn)
+        self.tree = self.phylo_tree()
+        return "(%s,%s)" % (f[0], f[1]), self.btree
+    
+    def phylo_tree(self):
+        tmp = "%s.xml" % uuid.uuid4().hex
+        with open(tmp, "w") as o: o.write(self.btree.to_xml())
+        t = Phylo.read(tmp,'phyloxml')
+        os.remove(tmp)
+        return t
 
     def find_t(i, c, t):
-        # return [x for x in t if (x[0]==i and x[1]==c) or (x[0]==c and x[1]==i)]
+        """find the tuple with i and c as cluster ids, in whatever order"""
         for x in t:
             if (x[0] == i and x[1] == c) or (x[0] == c and x[1] == i): return x
         return None
 
     def merge_t(x, y, i, j, c):
+        """return the merged cluster from two instances, averaging the distances"""
         return ("(%s,%s)" % (i, j), c, (x[2] + y[2]) / 2)
+
+    def draw(self):
+        if "tree" not in dir(self): return "call clustering first"
+        Phylo.draw(self.tree)
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
+        if "tree" not in dir(self): return "call clustering first"
+        with io.StringIO() as output:
+            Phylo.draw_ascii(self.tree, file=output)
+            return output.getvalue()
+
