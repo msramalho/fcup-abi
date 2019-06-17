@@ -1,6 +1,7 @@
 from .utils import GAP
 from collections import Counter
-import copy 
+import copy
+from tqdm import tqdm
 
 
 class MSA:
@@ -17,12 +18,14 @@ class MSA:
         c = seqs[0]
         aligned = [c]
         klass = c.__class__
-        for s in seqs[1:]:
-            score, traceback = c.global_align_multiple_solutions(s, self.sm, self.g)
-            c, s = next(c.recover_global_align_multiple_solutions(s, traceback))
-            aligned = self.update_aligned_with_gaps(aligned, c)
-            aligned.append(klass(s))  # add temp alignments to the list of processed
-            c = self.consensus(aligned + [s], klass)
+        with tqdm(total=len(seqs)-1) as pbar:
+            for s in seqs[1:]:
+                score, traceback = c.global_align_multiple_solutions(s, self.sm, self.g)
+                c, s = next(c.recover_global_align_multiple_solutions(s, traceback))
+                aligned = self.update_aligned_with_gaps(aligned, c)
+                aligned.append(klass(s))  # add temp alignments to the list of processed
+                c = self.consensus(aligned + [s], klass)
+                pbar.update()
         return c, aligned
 
     def update_aligned_with_gaps(self, aligned, l):
