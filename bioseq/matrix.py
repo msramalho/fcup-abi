@@ -71,7 +71,7 @@ class Matrix:
             plt.show()
         return True
 
-    def graph(self, cut):
+    def graph(self, cut): # pragma: no cover
         """Draw a graph from the matrix, using only the superior triangle"""
         import networkx as nx
         g = nx.Graph()
