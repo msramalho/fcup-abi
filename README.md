@@ -1,7 +1,8 @@
 # Fcup ABI
 Python Module for biological sequence handling developed in the course: Algorithms for Bionformatics
 
-[![Bioseq Module Build Status](https://travis-ci.com/msramalho/fcup-abi.svg?token=peexEWPZnZuwQpsysvdo&branch=master)](https://travis-ci.com/msramalho/fcup-abi)
+[![Build Status](https://travis-ci.org/msramalho/fcup-abi.svg?branch=master)](https://travis-ci.org/msramalho/fcup-abi)
+[![Coverage Status](https://coveralls.io/repos/github/msramalho/fcup-abi/badge.svg)](https://coveralls.io/github/msramalho/fcup-abi)
 
  * The 1st delivery report can be found [here](report/part1/report.pdf).
  * The 2nd delivery report can be found [here](report/part2/report.pdf).
