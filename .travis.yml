@@ -12,7 +12,7 @@ script:
 after_failure:
   - python pushbullet_notify.py "FAILURE"
 after_success:
-  - coveralls -b "bioseq/"
+  - coveralls -d ".coverage"
   - python pushbullet_notify.py "SUCCESS"
 
 notifications:
