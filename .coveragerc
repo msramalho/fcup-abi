@@ -1,6 +1,6 @@
 [run]
+source = .
 omit = 
 	*test*
 	*__init__.py
-	*home*
 branch = True
