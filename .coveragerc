@@ -3,4 +3,6 @@ source = .
 omit = 
 	*test*
 	*__init__.py
+	pusbullet_notify.py
+	setup.py
 branch = True
